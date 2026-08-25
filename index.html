@@ -192,15 +192,24 @@
     overflow: hidden;
   }
   .trabajo .foto {
+    position: relative;
     aspect-ratio: 16/10;
-    display: flex; align-items: center; justify-content: center;
-    color: white;
-    font-size: 0.9rem;
-    font-weight: 600;
+    overflow: hidden;
+    background: var(--verde-oscuro);
   }
-  .trabajo:nth-child(1) .foto { background: linear-gradient(135deg, #0e0d0b, #c9a227); }
-  .trabajo:nth-child(2) .foto { background: linear-gradient(135deg, #4a7c59, #2d4a36); }
-  .trabajo:nth-child(3) .foto { background: linear-gradient(135deg, #c97847, #8b3f2a); }
+  .trabajo .foto img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: top;
+    display: block;
+  }
+  .trabajo .badge {
+    position: absolute; top: 0.75rem; right: 0.75rem;
+    background: var(--ambar);
+    color: var(--texto);
+    font-size: 0.7rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 0.25rem 0.6rem; border-radius: 20px;
+  }
   .trabajo .info {
     padding: 1.25rem;
   }
@@ -285,8 +294,8 @@
 <header class="hero">
   <div class="hero-content">
     <span class="etiqueta">Concepción del Uruguay</span>
-    <h1>Servicios digitales para <em>comercios locales</em></h1>
-    <p>Estudiante de Sistemas de la UADER. Ayudo a comercios de CdU a aparecer en Google, tener su propia web y vender por WhatsApp.</p>
+    <h1>Tus clientes reservan, piden y te encuentran — <em>sin que atiendas cada mensaje</em></h1>
+    <p>Web, turnos online, Google y WhatsApp para comercios de CdU. Vos atendés tu negocio; la tecnología atiende el resto.</p>
     <a href="#servicios" class="btn btn-primary">Ver servicios</a>
     <a href="#portfolio" class="btn btn-ghost">Ver trabajos</a>
   </div>
@@ -300,7 +309,7 @@
   <div class="servicios">
     <div class="servicio">
       <div>
-        <h3>Google My Business</h3>
+        <h3>Google Business Profile</h3>
         <p>Tu negocio aparece en Google Maps con fotos, horarios, teléfono y reseñas. Cuando alguien busca tu rubro en CdU, te encuentra a vos.</p>
       </div>
       <div class="precio">$15.000<small>único</small></div>
@@ -336,7 +345,9 @@
   </div>
   <div class="portfolio">
     <div class="trabajo">
-      <div class="foto">Demo barbería</div>
+      <div class="foto">
+        <img src="img/barberia.png" alt="Sistema de turnos online para barbería" loading="lazy">
+      </div>
       <div class="info">
         <h3>Sistema de turnos para barbería</h3>
         <p>Demo completa con reserva de turnos, agenda del dueño y caja registradora.</p>
@@ -344,19 +355,34 @@
       </div>
     </div>
     <div class="trabajo">
-      <div class="foto">Munay Ki</div>
+      <div class="foto">
+        <img src="img/munayki.png" alt="Sitio web y reservas online de cabañas Munay Ki" loading="lazy">
+        <span class="badge">En producción</span>
+      </div>
       <div class="info">
-        <h3>Sitio web + sistema de reservas</h3>
-        <p>Para cabañas en San José. Sitio público + app interna para gestionar reservas.</p>
+        <h3>Cabañas Munay Ki · sitio + reservas</h3>
+        <p>En uso por cabañas en San José: los huéspedes reservan solos desde el sitio y la agenda se actualiza en tiempo real.</p>
         <a href="https://vvalenromero.github.io/munay-ki/" class="link" target="_blank">Ver sitio →</a>
       </div>
     </div>
     <div class="trabajo">
-      <div class="foto">Ejemplo comercio</div>
+      <div class="foto">
+        <img src="img/kiosco.png" alt="Página web simple para comercio local" loading="lazy">
+      </div>
       <div class="info">
         <h3>Página web para kiosco</h3>
         <p>Ejemplo de página simple para comercio local con productos y WhatsApp.</p>
         <a href="https://vvalenromero.github.io/peluqeria/ejemplo-kiosco/" class="link" target="_blank">Ver ejemplo →</a>
+      </div>
+    </div>
+    <div class="trabajo">
+      <div class="foto">
+        <img src="img/fuego.png" alt="Menú digital con pedido por WhatsApp" loading="lazy">
+      </div>
+      <div class="info">
+        <h3>Menú digital con pedido por WhatsApp</h3>
+        <p>El cliente arma su pedido en la carta y te llega por WhatsApp. Ideal para comida, pedidos y catálogos.</p>
+        <a href="https://vvalenromero.github.io/negocio/demo-comida/" class="link" target="_blank">Ver demo →</a>
       </div>
     </div>
   </div>

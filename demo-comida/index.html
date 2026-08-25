@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FUEGO · Burger House — Pedí por WhatsApp</title>
+<meta name="description" content="Menú digital con pedido por WhatsApp. Carta, carrito y pedido en un toque.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Karla:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --crema: oklch(0.97 0.01 80);
+    --crema-fuerte: oklch(0.94 0.015 80);
+    --rojo: oklch(0.52 0.18 28);
+    --rojo-oscuro: oklch(0.42 0.16 28);
+    --carbon: oklch(0.23 0.012 30);
+    --carbon-suave: oklch(0.42 0.015 30);
+    --linea: oklch(0.86 0.02 80);
+    --blanco: oklch(1 0 0);
+    --sombra: 0 2px 14px oklch(0.3 0.02 30 / 0.14);
+    --sombra-fuerte: 0 10px 30px oklch(0.25 0.03 30 / 0.28);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --wpp: oklch(0.55 0.15 150);
+    --space-xs: 4px; --space-sm: 8px; --space-md: 12px; --space-lg: 16px;
+    --space-xl: 24px; --space-2xl: 32px; --space-3xl: 48px; --space-4xl: 64px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Karla', system-ui, sans-serif;
+    background: var(--crema);
+    color: var(--carbon);
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  img { display: block; max-width: 100%; }
+
+  .display { font-family: 'Anton', sans-serif; text-transform: uppercase; letter-spacing: 0.03em; }
+
+  /* ============ HERO ============ */
+  .hero {
+    position: relative;
+    min-height: 62vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: var(--blanco);
+    overflow: hidden;
+    background: var(--carbon);
+  }
+  .hero-img {
+    position: absolute; inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.55;
+  }
+  .hero::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 30%, oklch(0.2 0.02 30 / 0.92) 100%);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: var(--space-3xl) var(--space-xl) var(--space-2xl);
+    max-width: 640px;
+  }
+  .hero .marca {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--crema);
+    background: oklch(1 0 0 / 0.14);
+    backdrop-filter: blur(6px);
+    border-radius: 999px;
+    padding: 6px 14px;
+    margin-bottom: var(--space-lg);
+  }
+  .hero .marca .punto { color: oklch(0.75 0.2 40); font-size: 1.2rem; line-height: 0; }
+  .hero h1 {
+    font-size: clamp(3rem, 13vw, 5.5rem);
+    line-height: 0.92;
+    color: var(--blanco);
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: oklch(0.72 0.19 38);
+  }
+  .hero p.tagline {
+    margin-top: var(--space-md);
+    font-size: 1.05rem;
+    color: oklch(0.88 0.02 80);
+    max-width: 38ch;
+    font-weight: 500;
+  }
+  .hero .info-chips {
+    margin-top: var(--space-xl);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+  .hero .info-chips span {
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: oklch(1 0 0 / 0.12);
+    border: 1px solid oklch(1 0 0 / 0.2);
+    padding: 6px 12px;
+    border-radius: 999px;
+    backdrop-filter: blur(4px);
+  }
+
+  /* ============ CATEGORÍAS ============ */
+  .categorias {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: var(--blanco);
+    border-bottom: 1px solid var(--linea);
+    padding: var(--space-sm) var(--space-lg);
+    display: flex;
+    gap: var(--space-sm);
+    overflow-x: auto;
+    scrollbar-width: none;
+    box-shadow: 0 1px 0 oklch(0.9 0.02 80 / 0.6);
+  }
+  .categorias::-webkit-scrollbar { display: none; }
+  .cat-btn {
+    font-family: 'Anton', sans-serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 9px 18px;
+    border-radius: 999px;
+    border: 1.5px solid var(--linea);
+    background: transparent;
+    color: var(--carbon-suave);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.18s ease-out;
+  }
+  .cat-btn.activa {
+    background: var(--rojo);
+    border-color: var(--rojo);
+    color: var(--blanco);
+    box-shadow: 0 4px 12px oklch(0.5 0.18 28 / 0.35);
+  }
+
+  /* ============ MENÚ ============ */
+  .menu {
+    padding: var(--space-2xl) var(--space-xl);
+    padding-bottom: 150px;
+    max-width: 660px;
+    margin: 0 auto;
+  }
+  .seccion-titulo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+  }
+  .seccion-titulo h2 {
+    font-family: 'Anton', sans-serif;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
+    color: var(--carbon);
+    white-space: nowrap;
+  }
+  .seccion-titulo .raya { flex: 1; height: 2px; background: var(--linea); }
+  .seccion-titulo .cuenta-badge {
+    font-family: 'Karla', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--carbon-suave);
+    background: var(--crema-fuerte);
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+
+  .item {
+    display: grid;
+    grid-template-columns: 84px 1fr auto;
+    gap: var(--space-lg);
+    align-items: center;
+    padding: var(--space-md);
+    margin-bottom: var(--space-md);
+    background: var(--blanco);
+    border-radius: var(--radius);
+    box-shadow: var(--sombra);
+    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+    animation: entrar 0.3s ease-out both;
+  }
+  .item:active { transform: scale(0.99); }
+  @keyframes entrar {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .item .foto {
+    width: 84px; height: 84px;
+    border-radius: var(--radius-sm);
+    background-size: cover;
+    background-position: center;
+    background-color: var(--crema-fuerte);
+  }
+  .item-info h3 { font-size: 1.05rem; font-weight: 800; color: var(--carbon); }
+  .item-info .desc { font-size: 0.85rem; color: var(--carbon-suave); margin-top: 2px; max-width: 40ch; }
+  .item-info .precio {
+    font-family: 'Anton', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+    color: var(--rojo-oscuro);
+    margin-top: 6px;
+  }
+  .item .add {
+    align-self: center;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    border: 2px solid var(--rojo);
+    background: transparent;
+    color: var(--rojo);
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: all 0.16s ease-out;
+  }
+  .item .add:active {
+    background: var(--rojo);
+    color: var(--blanco);
+    transform: scale(0.9);
+  }
+
+  /* ============ CARRITO BAR ============ */
+  .carrito-bar {
+    position: fixed;
+    left: var(--space-lg); right: var(--space-lg);
+    bottom: var(--space-lg);
+    z-index: 50;
+    background: var(--carbon);
+    color: var(--blanco);
+    border-radius: var(--radius);
+    padding: var(--space-md) var(--space-xl);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--sombra-fuerte);
+    cursor: pointer;
+    transition: transform 0.2s ease-out;
+    animation: subir 0.3s cubic-bezier(0.32, 0.72, 0, 1) both;
+  }
+  @keyframes subir {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .carrito-bar:active { transform: scale(0.97); }
+  .carrito-bar .cuenta {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .carrito-bar .cuenta .n {
+    background: var(--rojo);
+    color: var(--blanco);
+    min-width: 26px; height: 26px;
+    border-radius: 999px;
+    display: inline-grid;
+    place-items: center;
+    font-size: 0.9rem;
+  }
+  .carrito-bar .total { font-family: 'Anton', sans-serif; font-size: 1.15rem; color: oklch(0.75 0.19 38); }
+
+  /* ============ PANEL CARRITO ============ */
+  .overlay {
+    position: fixed; inset: 0;
+    background: oklch(0.15 0.01 30 / 0.55);
+    z-index: 60;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    backdrop-filter: blur(2px);
+  }
+  .overlay.abierto { opacity: 1; pointer-events: auto; }
+
+  .panel {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 70;
+    background: var(--crema);
+    border-radius: 24px 24px 0 0;
+    padding: var(--space-md) var(--space-xl) calc(var(--space-xl) + env(safe-area-inset-bottom));
+    transform: translateY(110%);
+    transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+    max-height: 88vh;
+    overflow-y: auto;
+  }
+  .panel.abierto { transform: translateY(0); }
+  .panel .tirador {
+    width: 46px; height: 5px;
+    border-radius: 3px;
+    background: var(--linea);
+    margin: 0 auto var(--space-lg);
+  }
+  .panel-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: var(--space-lg);
+  }
+  .panel-head h2 { font-family: 'Anton', sans-serif; text-transform: uppercase; font-size: 1.4rem; letter-spacing: 0.04em; }
+  .panel-head .vaciar {
+    background: none;
+    border: none;
+    color: var(--carbon-suave);
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .pedido-linea {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: var(--space-md);
+    align-items: center;
+    padding: var(--space-md) 0;
+    border-bottom: 1px dashed var(--linea);
+  }
+  .pedido-linea .qty {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--blanco);
+    border: 1.5px solid var(--linea);
+    border-radius: 999px;
+    padding: 3px 6px;
+  }
+  .pedido-linea .qty button {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--rojo);
+    display: grid;
+    place-items: center;
+  }
+  .pedido-linea .qty .numero { min-width: 20px; text-align: center; font-weight: 700; }
+  .pedido-linea .info .nombre { font-weight: 800; font-size: 0.95rem; }
+  .pedido-linea .info .unitario { font-size: 0.78rem; color: var(--carbon-suave); }
+  .pedido-linea .subtotal { font-family: 'Anton', sans-serif; font-size: 0.95rem; color: var(--carbon); }
+
+  .opciones {
+    margin-top: var(--space-xl);
+  }
+  .opciones .lbl {
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--carbon-suave);
+    margin-bottom: var(--space-sm);
+    display: block;
+  }
+  .opciones .tipo-pedido {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+  .opciones .tipo-pedido button {
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--linea);
+    background: var(--blanco);
+    font-family: 'Karla', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--carbon-suave);
+    cursor: pointer;
+    transition: all 0.15s ease-out;
+  }
+  .opciones .tipo-pedido button.activa {
+    border-color: var(--rojo);
+    background: oklch(0.96 0.03 28);
+    color: var(--rojo-oscuro);
+  }
+
+  .datos-cliente { display: flex; flex-direction: column; gap: var(--space-sm); }
+  .datos-cliente input, .datos-cliente textarea {
+    font-family: 'Karla', sans-serif;
+    font-size: 1rem;
+    padding: 14px 16px;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--linea);
+    background: var(--blanco);
+    color: var(--carbon);
+    width: 100%;
+    resize: none;
+  }
+  .datos-cliente input:focus, .datos-cliente textarea:focus {
+    outline: none;
+    border-color: var(--rojo);
+    box-shadow: 0 0 0 3px oklch(0.52 0.18 28 / 0.12);
+  }
+  .datos-cliente input.oculto { display: none; }
+
+  .resumen-pedido {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 2px solid var(--carbon);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .resumen-pedido .lbl { font-weight: 800; font-size: 0.9rem; color: var(--carbon-suave); text-transform: uppercase; letter-spacing: 0.08em; }
+  .resumen-pedido .envio { font-size: 0.82rem; color: var(--carbon-suave); }
+  .resumen-pedido .gr-total {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.9rem;
+    color: var(--rojo-oscuro);
+    letter-spacing: 0.02em;
+  }
+
+  .btn-pedir {
+    margin-top: var(--space-lg);
+    width: 100%;
+    background: var(--wpp);
+    color: var(--blanco);
+    border: none;
+    border-radius: var(--radius);
+    padding: 18px;
+    font-family: 'Anton', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.15s ease-out, filter 0.15s ease-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .btn-pedir:active { transform: scale(0.97); filter: brightness(1.1); }
+  .btn-pedir:disabled { opacity: 0.4; cursor: not-allowed; filter: none; }
+  .btn-pedir .wpp-ico { font-size: 1.4rem; }
+
+  .vacio {
+    text-align: center;
+    padding: var(--space-4xl) var(--space-lg);
+    color: var(--carbon-suave);
+    font-size: 0.95rem;
+  }
+  .vacio .grande {
+    font-family: 'Anton', sans-serif;
+    font-size: 2.4rem;
+    color: oklch(0.88 0.02 80);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: var(--space-sm);
+  }
+
+  /* ============ TOAST ============ */
+  .toast {
+    position: fixed;
+    top: 20px; left: 50%;
+    transform: translateX(-50%) translateY(-80px);
+    z-index: 100;
+    background: var(--carbon);
+    color: var(--blanco);
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 12px 20px;
+    border-radius: 999px;
+    box-shadow: var(--sombra-fuerte);
+    transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+    pointer-events: none;
+    max-width: 90vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .toast.visible { transform: translateX(-50%) translateY(0); }
+  .toast .chk { color: oklch(0.72 0.19 150); margin-right: 6px; }
+
+  /* ============ UBICACIÓN / MAPA ============ */
+  .ubicacion {
+    max-width: 660px;
+    margin: 0 auto;
+    padding: var(--space-2xl) var(--space-xl) var(--space-3xl);
+  }
+  .mapa-caja {
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--sombra);
+    border: 1px solid var(--linea);
+    background: var(--crema-fuerte);
+    position: relative;
+    margin-top: var(--space-lg);
+  }
+  .mapa-caja iframe {
+    display: block;
+    width: 100%;
+    height: 280px;
+    border: 0;
+  }
+  .mapa-nota {
+    font-size: 0.8rem;
+    color: var(--carbon-suave);
+    margin-top: var(--space-sm);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn-llegar {
+    margin-top: var(--space-lg);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--carbon);
+    color: var(--blanco);
+    border-radius: var(--radius-sm);
+    padding: 14px 22px;
+    font-family: 'Anton', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform 0.15s ease-out, background 0.15s ease-out;
+  }
+  .btn-llegar:active { transform: scale(0.97); background: var(--rojo); }
+
+  /* ============ FOOTER ============ */
+  footer {
+    text-align: center;
+    padding: var(--space-3xl) var(--space-xl);
+    color: oklch(0.5 0.02 30);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--linea);
+    background: var(--blanco);
+  }
+  footer .nombre-local { font-family: 'Anton', sans-serif; font-size: 1rem; letter-spacing: 0.05em; color: var(--carbon); }
+
+  @media (min-width: 660px) {
+    .menu { padding-left: var(--space-2xl); padding-right: var(--space-2xl); }
+    .carrito-bar { max-width: 620px; margin: 0 auto; left: 0; right: 0; bottom: var(--space-xl); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     CONFIGURACIÓN DEL LOCAL — esto es lo que cambia el dueño
+     (Nombre, eslogan, WhatsApp, horarios, dirección y platos)
+     ============================================================ -->
+<script id="config-local">
+  window.LOCAL = {
+    nombre: "FUEGO",
+    eslogan: "Burgers & comida de barrio, hechas en CdU",
+    whatsapp: "5493442558028",
+    direccion: "Concepción del Uruguay, Entre Ríos",
+    mapa: "Concepción del Uruguay, Entre Ríos, Argentina",
+    horarios: "Mar a Dom · 19:30 a 00:30",
+    delivery: "PedidosYa y Rappi",
+    costo_envio: 1500
+  };
+</script>
+
+<!-- ============================================================
+     LOS PLATOS — agregá, sacá o cambiá precios acá
+     ============================================================ -->
+<script id="config-menu">
+  window.MENU_DATA = {
+    "Burguers": [
+      { nombre: "Clásica",          desc: "Medallón 130g, cheddar, lechuga, tomate y mayonesa casera.", precio: 8500,  img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&q=70" },
+      { nombre: "Cheddar & Bacon",  desc: "Doble cheddar derretido, panceta crocante y cebolla morada.", precio: 10500, img: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=400&q=70" },
+      { nombre: "La Fuego",         desc: "Doble medallón, doble cheddar, bacon, huevo y cebolla caramelizada.", precio: 13500, img: "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=400&q=70" },
+      { nombre: "Veggie",           desc: "Medallón de lentejas y choclo, palta, rúcula y salsa de pimientos.", precio: 9500,  img: "https://images.unsplash.com/photo-1525059696034-4967a4e1d4cf?w=400&q=70" }
+    ],
+    "Lomitos": [
+      { nombre: "Lomo completo",    desc: "Lomo, jamón, queso, lechuga, tomate y huevo.", precio: 11500, img: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=400&q=70" },
+      { nombre: "Lomo a caballo",   desc: "Lomo, jamón, queso, huevo frito y papas fritas.", precio: 12500, img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&q=70" },
+      { nombre: "Suprema completa", desc: "Suprema de pollo, jamón, queso y ensalada fresca.", precio: 10500, img: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=400&q=70" }
+    ],
+    "Papas": [
+      { nombre: "Fritas chicas",          desc: "Con sal marina.", precio: 3500,  img: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400&q=70" },
+      { nombre: "Fritas cheddar & bacon", desc: "La favorita del local. Extra cheddar.", precio: 6500, img: "https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?w=400&q=70" },
+      { nombre: "Fritas bravas",          desc: "Salsa picante de la casa y ciboulette.", precio: 5500,  img: "https://images.unsplash.com/photo-1585109649139-366815a0d713?w=400&q=70" }
+    ],
+    "Bebidas": [
+      { nombre: "Coca-Cola 500ml",      desc: "Bien helada.", precio: 2500, img: "https://images.unsplash.com/photo-1554866585-cd94860890b7?w=400&q=70" },
+      { nombre: "Limonada casera",      desc: "Con menta fresca.", precio: 3000, img: "https://images.unsplash.com/photo-1523677011781-c91d1bbe2f9e?w=400&q=70" },
+      { nombre: "Cerveza tirada 473ml", desc: "Rubia o negra.", precio: 4000, img: "https://images.unsplash.com/photo-1608270586620-248524c67de9?w=400&q=70" }
+    ],
+    "Postres": [
+      { nombre: "Cheesecake de la casa", desc: "Con salsa de frutos rojos.", precio: 4500, img: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=400&q=70" },
+      { nombre: "Brownie con helado",    desc: "Caliente, con helado de crema.", precio: 4800, img: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&q=70" }
+    ]
+  };
+</script>
+
+<header class="hero">
+  <div class="hero-img" id="heroImg"></div>
+  <div class="hero-content">
+    <span class="marca"><span class="punto">•</span> FUEGO BURGER HOUSE</span>
+    <h1>Pedí <em>fuego</em> sin llamar</h1>
+    <p class="tagline">Elegí del menú, armá tu pedido y mandalo por WhatsApp. En 30 segundos.</p>
+    <div class="info-chips">
+      <span>🕐 <span id="chipHorarios"></span></span>
+      <span>🛵 <span id="chipDelivery"></span></span>
+      <span>📍 <span id="chipDireccion"></span></span>
+    </div>
+  </div>
+</header>
+
+<nav class="categorias" id="categorias"></nav>
+
+<main class="menu" id="menu"></main>
+
+<div class="carrito-bar" id="carritoBar" style="display:none">
+  <span class="cuenta"><span class="n" id="carritoCuenta">0</span> MI PEDIDO</span>
+  <span class="total" id="carritoTotal">$0</span>
+</div>
+
+<div class="overlay" id="overlay"></div>
+<section class="panel" id="panel" aria-label="Tu pedido">
+  <div class="tirador"></div>
+  <div class="panel-head">
+    <h2>Tu pedido</h2>
+    <button class="vaciar" id="btnVaciar">Vaciar todo</button>
+  </div>
+  <div id="pedidoLineas"></div>
+  <div id="pedidoVacio" class="vacio">
+    <span class="grande">Sin nada todavía</span>
+    Elegí algún plato del menú y lo sumamos acá.
+  </div>
+
+  <div class="opciones" id="opciones" style="display:none">
+    <span class="lbl">¿Cómo lo querés?</span>
+    <div class="tipo-pedido">
+      <button data-tipo="delivery" id="btnDelivery" class="activa">🛵 Delivery</button>
+      <button data-tipo="retiro" id="btnRetiro">🏃 Retirar en local</button>
+    </div>
+
+    <div class="datos-cliente">
+      <input type="text" id="inputNombre" placeholder="Tu nombre" autocomplete="name">
+      <input type="text" id="inputDireccion" placeholder="Dirección de entrega" autocomplete="street-address">
+      <textarea id="inputNota" rows="2" placeholder="Nota para el local (opcional)"></textarea>
+    </div>
+  </div>
+
+  <div class="resumen-pedido" id="resumenTotal" style="display:none">
+    <div>
+      <div class="lbl">Total</div>
+      <div class="envio" id="textoEnvio"></div>
+    </div>
+    <span class="gr-total" id="totalGrande">$0</span>
+  </div>
+
+  <button class="btn-pedir" id="btnPedir" disabled>
+    <span class="wpp-ico">💬</span> Pedir por WhatsApp
+  </button>
+</section>
+
+<div class="toast" id="toast"><span class="chk">✓</span><span id="toastTexto"></span></div>
+
+<section class="ubicacion">
+  <div class="seccion-titulo">
+    <h2>¿Dónde estamos?</h2>
+    <span class="raya"></span>
+  </div>
+  <div class="mapa-caja">
+    <iframe id="mapaFrame" title="Ubicación del local" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+  </div>
+  <p class="mapa-nota">📍 <span id="mapaDireccion"></span></p>
+  <a class="btn-llegar" id="btnLlegar" href="#" target="_blank" rel="noopener">🗺️ Cómo llegar</a>
+</section>
+
+<footer>
+  <div class="nombre-local">FUEGO</div>
+  <p id="footerInfo"></p>
+  <p style="margin-top: 8px; opacity: 0.7;">Menú digital con pedido automático por WhatsApp · <strong>Valentín Romero</strong></p>
+</footer>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const L = window.LOCAL;
+const MENU = window.MENU_DATA;
+
+const FMT = new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS", maximumFractionDigits: 0 });
+let carrito = JSON.parse(localStorage.getItem("fuego_carrito") || "{}");
+let catActiva = Object.keys(MENU)[0];
+let tipoPedido = "delivery";
+
+/* ---------- Hero + footer dinámico ---------- */
+$("heroImg").style.backgroundImage =
+  "url('https://images.unsplash.com/photo-1601924582970-9238bcb495d9?w=1400&q=70')";
+$("chipHorarios").textContent = L.horarios;
+$("chipDelivery").textContent = L.delivery;
+$("chipDireccion").textContent = L.direccion;
+$("footerInfo").textContent = `${L.direccion} · ${L.horarios} · ${L.delivery}`;
+document.title = `${L.nombre} · Pedí por WhatsApp`;
+
+// Mapa: usá la dirección del bloque config-local (o coordenadas tipo "-32.48,-58.23")
+const qMapa = encodeURIComponent(L.mapa || L.direccion);
+$("mapaFrame").src = `https://www.google.com/maps?q=${qMapa}&z=16&output=embed`;
+$("btnLlegar").href = `https://www.google.com/maps/search/?api=1&query=${qMapa}`;
+$("mapaDireccion").textContent = L.direccion;
+
+/* ---------- Categorías ---------- */
+function renderCategorias() {
+  const nav = $("categorias");
+  nav.innerHTML = "";
+  Object.keys(MENU).forEach((cat) => {
+    const b = document.createElement("button");
+    b.className = "cat-btn" + (cat === catActiva ? " activa" : "");
+    b.textContent = cat;
+    b.onclick = () => {
+      catActiva = cat;
+      renderCategorias();
+      renderMenu();
+    };
+    nav.appendChild(b);
+  });
+}
+
+/* ---------- Menú ---------- */
+function renderMenu() {
+  const menu = $("menu");
+  menu.innerHTML = "";
+  const seccion = document.createElement("section");
+  seccion.className = "seccion";
+
+  const titulo = document.createElement("div");
+  titulo.className = "seccion-titulo";
+  titulo.innerHTML = `<h2>${catActiva}</h2><span class="raya"></span><span class="cuenta-badge">${MENU[catActiva].length} opciones</span>`;
+  seccion.appendChild(titulo);
+
+  MENU[catActiva].forEach((item, i) => {
+    const div = document.createElement("div");
+    div.className = "item";
+    div.style.animationDelay = `${i * 0.04}s`;
+
+    const foto = document.createElement("div");
+    foto.className = "foto";
+    foto.style.backgroundImage = item.img ? `url('${item.img}')` : "none";
+
+    const info = document.createElement("div");
+    info.className = "item-info";
+    info.innerHTML = `
+      <h3>${item.nombre}</h3>
+      ${item.desc ? `<p class="desc">${item.desc}</p>` : ""}
+      <p class="precio">${FMT.format(item.precio)}</p>`;
+
+    const add = document.createElement("button");
+    add.className = "add";
+    add.textContent = "+";
+    add.setAttribute("aria-label", "Agregar " + item.nombre);
+    add.onclick = () => {
+      if (!carrito[item.nombre]) carrito[item.nombre] = { item, qty: 0 };
+      carrito[item.nombre].qty++;
+      guardar();
+      toast(`Agregado: ${item.nombre}`);
+      actualizarUI();
+    };
+
+    div.append(foto, info, add);
+    seccion.appendChild(div);
+  });
+  menu.appendChild(seccion);
+}
+
+/* ---------- Carrito ---------- */
+const contador = () => Object.values(carrito).reduce((s, l) => s + l.qty, 0);
+const totalPedido = () => Object.values(carrito).reduce((s, l) => s + l.qty * l.item.precio, 0);
+const guardar = () => localStorage.setItem("fuego_carrito", JSON.stringify(carrito));
+
+function actualizarUI() {
+  const n = contador();
+  $("carritoBar").style.display = n > 0 ? "flex" : "none";
+  $("carritoCuenta").textContent = n;
+  $("carritoTotal").textContent = FMT.format(totalPedido());
+  renderLineas();
+  renderResumen();
+}
+
+function renderLineas() {
+  const cont = $("pedidoLineas");
+  cont.innerHTML = "";
+  const conItems = contador() > 0;
+
+  Object.values(carrito).forEach(({ item, qty }) => {
+    const row = document.createElement("div");
+    row.className = "pedido-linea";
+
+    const qbox = document.createElement("div");
+    qbox.className = "qty";
+    const menos = document.createElement("button");
+    menos.textContent = "−";
+    menos.onclick = () => {
+      carrito[item.nombre].qty--;
+      if (carrito[item.nombre].qty <= 0) delete carrito[item.nombre];
+      guardar(); actualizarUI();
+    };
+    const num = document.createElement("span");
+    num.className = "numero";
+    num.textContent = qty;
+    const mas = document.createElement("button");
+    mas.textContent = "+";
+    mas.onclick = () => { carrito[item.nombre].qty++; guardar(); actualizarUI(); };
+    qbox.append(menos, num, mas);
+
+    const info = document.createElement("div");
+    info.className = "info";
+    info.innerHTML = `<div class="nombre">${item.nombre}</div><div class="unitario">${FMT.format(item.precio)} c/u</div>`;
+
+    const sub = document.createElement("span");
+    sub.className = "subtotal";
+    sub.textContent = FMT.format(item.precio * qty);
+
+    row.append(qbox, info, sub);
+    cont.appendChild(row);
+  });
+
+  $("pedidoVacio").style.display = conItems ? "none" : "block";
+  $("opciones").style.display = conItems ? "block" : "none";
+  $("resumenTotal").style.display = conItems ? "flex" : "none";
+  $("btnPedir").disabled = !conItems;
+}
+
+function renderResumen() {
+  const envio = tipoPedido === "delivery" ? L.costo_envio : 0;
+  const total = totalPedido() + envio;
+  $("totalGrande").textContent = FMT.format(total);
+  $("textoEnvio").textContent =
+    tipoPedido === "delivery"
+      ? `Envío ${envio > 0 ? FMT.format(envio) : "gratis"} · incluye ${FMT.format(totalPedido())}`
+      : `Retiro en local · ${FMT.format(totalPedido())}`;
+}
+
+/* ---------- Tipo de pedido ---------- */
+$("btnDelivery").onclick = () => { tipoPedido = "delivery"; pintarTipo(); $("inputDireccion").classList.remove("oculto"); renderResumen(); };
+$("btnRetiro").onclick = () => { tipoPedido = "retiro"; pintarTipo(); $("inputDireccion").classList.add("oculto"); renderResumen(); };
+function pintarTipo() {
+  $("btnDelivery").classList.toggle("activa", tipoPedido === "delivery");
+  $("btnRetiro").classList.toggle("activa", tipoPedido === "retiro");
+}
+
+/* ---------- Panel ---------- */
+function abrirPanel() { $("overlay").classList.add("abierto"); $("panel").classList.add("abierto"); }
+function cerrarPanel() { $("overlay").classList.remove("abierto"); $("panel").classList.remove("abierto"); }
+$("carritoBar").onclick = abrirPanel;
+$("overlay").onclick = cerrarPanel;
+$("btnVaciar").onclick = () => { carrito = {}; guardar(); actualizarUI(); toast("Pedido vaciado"); };
+
+/* ---------- Toast ---------- */
+let toastTimer;
+function toast(msj) {
+  $("toastTexto").textContent = msj;
+  $("toast").classList.add("visible");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => $("toast").classList.remove("visible"), 1800);
+}
+
+/* ---------- Pedido por WhatsApp ---------- */
+$("btnPedir").onclick = () => {
+  const nombre = $("inputNombre").value.trim();
+  if (!nombre) { $("inputNombre").focus(); toast("Poné tu nombre primero"); return; }
+
+  let msj = `¡Hola ${L.nombre}! Quiero hacer un pedido:\n\n`;
+  Object.values(carrito).forEach(({ item, qty }) => {
+    msj += `• ${qty}× ${item.nombre} — ${FMT.format(item.precio * qty)}\n`;
+  });
+  const envio = tipoPedido === "delivery" ? L.costo_envio : 0;
+  msj += `\n*Total (${contador()} items): ${FMT.format(totalPedido() + envio)}*`;
+  if (envio > 0) msj += `\n(incluye envío ${FMT.format(envio)})`;
+  msj += `\n\n👤 Nombre: ${nombre}`;
+  if (tipoPedido === "delivery") {
+    const dir = $("inputDireccion").value.trim();
+    if (dir) msj += `\n📍 Dirección: ${dir}`;
+  } else {
+    msj += `\n🏃 Retiro en local`;
+  }
+  const nota = $("inputNota").value.trim();
+  if (nota) msj += `\n📝 Nota: ${nota}`;
+
+  window.open(`https://wa.me/${L.whatsapp}?text=${encodeURIComponent(msj)}`, "_blank");
+};
+
+/* ---------- Init ---------- */
+renderCategorias();
+renderMenu();
+actualizarUI();
+</script>
+</body>
+</html>

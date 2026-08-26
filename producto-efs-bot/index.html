@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EFS Bot · Gestión de lotes por WhatsApp | Producto</title>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@700&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--verde:#1a4a32;--verde-oscuro:#0f2e1f;--ambar:#d4a017;--fondo:#f8faf8;--texto:#1a2e1e;--texto-claro:#5a6b5e;--borde:#e0e8e0}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Manrope',sans-serif;background:var(--fondo);color:var(--texto);line-height:1.6}
+h1,h2,h3{font-family:'Schibsted Grotesk',sans-serif;color:var(--verde-oscuro)}
+.wrap{max-width:800px;margin:0 auto;padding:2rem 1.5rem}
+.card{background:white;border:1px solid var(--borde);border-radius:14px;padding:1.4rem;margin-bottom:1rem}
+.etiqueta{display:inline-block;background:#e8f5e9;color:var(--verde);padding:.25rem .6rem;border-radius:20px;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.price{font-size:1.5rem;font-weight:800;color:var(--verde-oscuro)} .price small{font-size:.82rem;color:var(--texto-claro);font-weight:500}
+ul{margin:.6rem 0 0 1.1rem;font-size:.9rem} li{margin:.25rem 0}
+.btn{display:inline-flex;gap:.4rem;align-items:center;background:var(--ambar);color:var(--texto);padding:.8rem 1.1rem;border-radius:10px;text-decoration:none;font-weight:700;margin-top:.8rem}
+.chat{border:1px solid var(--borde);border-radius:10px;overflow:hidden;margin-top:.8rem}
+.chat .msg{padding:.6rem .8rem;font-size:.85rem;max-width:75%;margin:.4rem;border-radius:10px}
+.chat .user{background:var(--verde);color:white;margin-left:auto;border-bottom-right-radius:2px}
+.chat .bot{background:var(--fondo);border:1px solid var(--borde);margin-right:auto;border-bottom-left-radius:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div style="text-align:center;margin-bottom:1rem">
+<div class="etiqueta">Producto · Automatización EFS Agro</div>
+<h1 style="margin-top:.5rem">EFS Bot — Gestión de lotes por WhatsApp</h1>
+<p style="color:var(--texto-claro)">Cargás la planilla y le preguntás. Te responde con números, sin abrir el Excel.</p>
+</div>
+
+<div class="card">
+<h3>¿Qué hace?</h3>
+<ul>
+<li>📤 Cargás por chat la planilla de cada vuelo: campo, hectáreas, producto, fecha</li>
+<li>💬 Le preguntás: <em>"¿cuántas ha fumigué esta semana en La Esperanza?"</em> o <em>"¿qué lotes faltan sembrar?"</em></li>
+<li>📊 Te responde al toque con el número, comparativa y gráfico simple</li>
+<li>🗺️ Dashboard con mapa de lotes + estado (fumigado / pendiente)</li>
+<li>📲 Cotización automática por WhatsApp para productores (ubicación + ha → presupuesto)</li>
+</ul>
+<div class="chat">
+<div class="msg user">¿Cuántas ha fumigué esta semana?</div>
+<div class="msg bot">Esta semana: <strong>42 ha</strong> en 3 lotes (La Esperanza 18ha, Don Néstor 15ha, El Ombú 9ha). +12% vs semana pasada.</div>
+<div class="msg user">¿Qué lote falta sembrar?</div>
+<div class="msg bot">Te falta <strong>El Ombú (28 ha)</strong> — programado para mañana si el viento <15 km/h.</div>
+</div>
+</div>
+
+<div class="card" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+<div>
+<h3>Le ahorra a Fede</h3>
+<ul>
+<li>2-3 hs por semana de Excel/WhatsApp</li>
+<li>No más "¿dónde anoté eso?"</li>
+<li>Informes para ingeniero en 1 toque</li>
+</ul>
+</div>
+<div>
+<h3>Cómo funciona</h3>
+<ul>
+<li>Chat privado (Telegram/WhatsApp) conectado a tu planilla</li>
+<li>IA lee la planilla y responde — sin app nueva</li>
+<li>Dashboard web simple para ver todo</li>
+</ul>
+</div>
+</div>
+
+<div class="card" style="text-align:center">
+<div class="price">$15 <small>USD / mes · incluye chat + dashboard</small></div>
+<p style="font-size:.85rem;color:var(--texto-claro)">Prueba 14 días gratis · Se instala en 1 día con tu planilla actual</p>
+<a href="https://wa.me/5493447123456?text=Hola%20quiero%20probar%20EFS%20Bot%20para%20mis%20lotes" class="btn" target="_blank">Probar EFS Bot →</a>
+<p style="font-size:.72rem;color:var(--texto-claro);margin-top:.4rem">Demo con tu planilla real — sin compromiso</p>
+</div>
+
+<div style="text-align:center;color:var(--texto-claro);font-size:.78rem;margin-top:1rem">Para EFS Agro Sustentable · Por Valentín Romero · vvalenromero.github.io/negocio/producto-efs-bot/</div>
+</div>
+</body>
+</html>

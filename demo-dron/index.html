@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgroDron · Pulverización y Siembra con Dron | Entre Ríos</title>
+<meta name="description" content="Pulverización y siembra con dron en Entre Ríos. Más precisa, sin pisoteo, entra con barro. Cotizá por WhatsApp en 1 minuto.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --verde:#1a4a32;
+  --verde-oscuro:#0f2e1f;
+  --verde-claro:#e8f5e9;
+  --ambar:#d4a017;
+  --ambar-claro:#f5d547;
+  --fondo:#f8faf8;
+  --tarjeta:white;
+  --texto:#1a2e1e;
+  --texto-claro:#5a6b5e;
+  --borde:#e0e8e0;
+  --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Manrope',system-ui,sans-serif;font-size:16px;line-height:1.65;background:var(--fondo);color:var(--texto)}
+h1,h2,h3,.display{font-family:'Schibsted Grotesk',system-ui,sans-serif;font-weight:700;letter-spacing:-.02em;color:var(--verde-oscuro)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(248,250,248,.95);backdrop-filter:blur(8px);padding:.9rem 1.5rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--borde)}
+.logo{font-family:'Schibsted Grotesk',sans-serif;font-size:1.35rem;font-weight:800;color:var(--verde-oscuro)}
+.logo span{color:var(--ambar)}
+.logo small{font-weight:500;font-size:.75rem;color:var(--texto-claro);display:block;margin-top:-4px;letter-spacing:.08em;text-transform:uppercase}
+.cta-nav{background:var(--verde);color:white;padding:.6rem 1.1rem;border-radius:8px;text-decoration:none;font-weight:600;font-size:.9rem}
+.cta-nav:hover{background:var(--verde-oscuro)}
+.hero{min-height:88vh;display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:center;padding:6.5rem 1.5rem 3rem;max-width:1100px;margin:0 auto}
+.hero-text .etiqueta{display:inline-flex;align-items:center;gap:.4rem;background:var(--verde-claro);color:var(--verde);padding:.3rem .8rem;border-radius:20px;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:1rem}
+.hero h1{font-size:clamp(2.2rem,5vw,3.4rem);line-height:1.05;margin-bottom:1rem}
+.hero h1 em{font-style:normal;color:var(--ambar);background:linear-gradient(135deg,var(--ambar),#b8860b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:1.05rem;color:var(--texto-claro);margin-bottom:1.6rem;max-width:500px}
+.hero-ctas{display:flex;gap:.8rem;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 1.3rem;border-radius:10px;text-decoration:none;font-weight:700;font-size:.95rem;transition:all .2s}
+.btn-primary{background:var(--ambar);color:var(--texto)}
+.btn-primary:hover{background:var(--ambar-claro);transform:translateY(-2px)}
+.btn-ghost{background:white;color:var(--verde);border:1.5px solid var(--borde)}
+.btn-ghost:hover{border-color:var(--verde);background:var(--verde-claro)}
+.hero-visual{position:relative;background:linear-gradient(160deg,var(--verde) 0%,var(--verde-oscuro) 100%);border-radius:16px;overflow:hidden;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;color:white;padding:2rem}
+.hero-visual::before{content:"";position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80') center/cover;opacity:.35}
+.hero-visual-inner{position:relative;text-align:center}
+.hero-visual .drone{font-size:4rem;margin-bottom:.5rem;display:block}
+.hero-visual h3{color:white;font-size:1.2rem;margin-bottom:.3rem}
+.hero-visual p{color:rgba(255,255,255,.85);font-size:.88rem}
+.hero-stats{display:flex;gap:1.2rem;margin-top:1.4rem}
+.stat{text-align:left}
+.stat strong{font-family:'Schibsted Grotesk',sans-serif;font-size:1.4rem;color:var(--verde-oscuro);display:block;line-height:1}
+.stat span{font-size:.78rem;color:var(--texto-claro);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+section{padding:3.5rem 1.5rem;max-width:1100px;margin:0 auto}
+.seccion-titulo{margin-bottom:2rem;text-align:center;max-width:600px;margin-left:auto;margin-right:auto}
+.seccion-titulo .etiqueta{color:var(--ambar);letter-spacing:.15em;text-transform:uppercase;font-size:.78rem;font-weight:700}
+.seccion-titulo h2{font-size:1.9rem;margin-top:.4rem}
+.seccion-titulo p{color:var(--texto-claro);margin-top:.6rem}
+.servicios{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.servicio{background:var(--tarjeta);border:1px solid var(--borde);border-radius:var(--radius);padding:1.6rem;position:relative;overflow:hidden}
+.servicio.featured{border:2px solid var(--ambar);background:linear-gradient(180deg,white 0%,#fffef5 100%)}
+.servicio .badge{position:absolute;top:.8rem;right:.8rem;background:var(--ambar);color:var(--texto);font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:.25rem .55rem;border-radius:20px}
+.servicio .icon{width:48px;height:48px;background:var(--verde-claro);border-radius:10px;display:grid;place-items:center;font-size:1.5rem;margin-bottom:1rem}
+.servicio.featured .icon{background:var(--ambar)}
+.servicio h3{font-size:1.15rem;margin-bottom:.4rem}
+.servicio p{color:var(--texto-claro);font-size:.92rem;margin-bottom:.9rem}
+.servicio ul{list-style:none;display:grid;gap:.4rem}
+.servicio ul li{font-size:.88rem;display:flex;gap:.5rem;align-items:flex-start}
+.servicio ul li::before{content:"✓";color:var(--verde);font-weight:800;flex-shrink:0}
+.pasos{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.paso{background:var(--tarjeta);border:1px solid var(--borde);border-radius:var(--radius);padding:1.6rem;text-align:center;position:relative}
+.paso .num{width:36px;height:36px;background:var(--verde);color:white;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:.9rem;margin:0 auto .8rem}
+.paso h3{font-size:1rem;margin-bottom:.3rem}
+.paso p{color:var(--texto-claro);font-size:.88rem}
+.cobertura{display:grid;grid-template-columns:1.1fr .9fr;gap:1.5rem;align-items:center;background:var(--tarjeta);border:1px solid var(--borde);border-radius:var(--radius);padding:2rem}
+.cobertura-mapa{background:var(--verde-claro);border-radius:12px;aspect-ratio:4/3;display:grid;place-items:center;text-align:center;padding:1.5rem;border:1px dashed var(--verde)}
+.cobertura-mapa .pin{font-size:2.2rem}
+.cobertura ul{list-style:none;display:grid;gap:.5rem;margin-top:.8rem}
+.cobertura ul li{font-size:.9rem;display:flex;gap:.5rem}
+.cobertura ul li::before{content:"📍";flex-shrink:0}
+.galeria{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.galeria .foto{aspect-ratio:1;border-radius:12px;overflow:hidden;background:var(--verde-oscuro);position:relative}
+.galeria .foto img{width:100%;height:100%;object-fit:cover;display:block}
+.galeria .foto .label{position:absolute;bottom:.5rem;left:.5rem;background:rgba(0,0,0,.65);color:white;font-size:.7rem;font-weight:700;padding:.2rem .5rem;border-radius:6px}
+.faq{display:grid;gap:.8rem;max-width:700px;margin:0 auto}
+.faq-item{background:var(--tarjeta);border:1px solid var(--borde);border-radius:10px;padding:1.2rem 1.4rem}
+.faq-item h3{font-size:.98rem;margin-bottom:.3rem;display:flex;gap:.5rem}
+.faq-item p{color:var(--texto-claro);font-size:.88rem}
+.cta-final{background:var(--verde-oscuro);color:white;border-radius:var(--radius);padding:2.8rem 2rem;text-align:center}
+.cta-final h2{color:white;font-size:1.8rem;margin-bottom:.5rem}
+.cta-final p{opacity:.9;max-width:520px;margin:0 auto 1.4rem}
+.cta-final .btn-primary{background:var(--ambar);color:var(--texto)}
+.wa-float{position:fixed;bottom:1.2rem;right:1.2rem;background:#25D366;color:white;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-size:1.6rem;text-decoration:none;box-shadow:0 4px 16px rgba(0,0,0,.2);z-index:99}
+footer{text-align:center;padding:2rem 1.5rem;color:var(--texto-claro);font-size:.82rem;border-top:1px solid var(--borde);margin-top:2rem}
+@media(max-width:860px){
+  .hero{grid-template-columns:1fr;min-height:auto;padding:5.5rem 1.25rem 2rem}
+  .hero-visual{aspect-ratio:16/10}
+  .servicios{grid-template-columns:1fr}
+  .pasos{grid-template-columns:1fr}
+  .cobertura{grid-template-columns:1fr}
+  .galeria{grid-template-columns:1fr 1fr}
+  section{padding:2.5rem 1.25rem}
+}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">AGRO<span>DRON</span><small>Entre Ríos · Pulverización & Siembra</small></div>
+  <a href="https://wa.me/5493447123456?text=Hola%20quiero%20cotizar%20pulverizaci%C3%B3n%20con%20dron%20para%20mi%20campo" class="cta-nav" target="_blank">Cotizar por WhatsApp</a>
+</nav>
+
+<header class="hero">
+  <div class="hero-text">
+    <span class="etiqueta">🚁 Dron agrícola · Sin pisoteo</span>
+    <h1>Pulverización y siembra <em>más precisa, sin entrar con tractor</em></h1>
+    <p>Entramos con barro, no compactamos suelo y aplicamos parejo. Ideal para lotes chicos, bordes y manchoneo. Cotizá en 1 minuto por WhatsApp.</p>
+    <div class="hero-ctas">
+      <a href="https://wa.me/5493447123456?text=Hola%20Fede%2C%20quiero%20cotizar%20pulverizaci%C3%B3n%2Fsiembra%20con%20dron.%20Tengo%20__%20hect%C3%A1reas%20en%20__%20(campo%2Fzona)%20y%20quiero%20aplicar%20__" class="btn btn-primary" target="_blank">📲 Cotizar por WhatsApp</a>
+      <a href="#como" class="btn btn-ghost">Cómo trabajamos</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><strong>+800 ha</strong><span>aplicadas</span></div>
+      <div class="stat"><strong>24 hs</strong><span>respuesta</span></div>
+      <div class="stat"><strong>100%</strong><span>sin pisoteo</span></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-visual-inner">
+      <span class="drone">🚁</span>
+      <h3>Dron en trabajo real</h3>
+      <p>Foto/video de tu equipo acá<br>— reemplazable en 1 clic —</p>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="seccion-titulo">
+    <p class="etiqueta">Servicios</p>
+    <h2>Qué hacemos con el dron</h2>
+    <p>Para productor, contratista y pool. Trabajamos por hectárea, con informe de aplicación.</p>
+  </div>
+  <div class="servicios">
+    <div class="servicio featured">
+      <span class="badge">Más pedido</span>
+      <div class="icon">💧</div>
+      <h3>Pulverización / Fumigación</h3>
+      <p>Herbicida, insecticida y fungicida con aplicación de precisión.</p>
+      <ul>
+        <li>Menos deriva, dosis exacta por ha</li>
+        <li>Entra con barro, sin huellas</li>
+        <li>Ideal para manchoneo y bordes</li>
+        <li>Informe con mapa y fecha</li>
+      </ul>
+    </div>
+    <div class="servicio">
+      <div class="icon">🌱</div>
+      <h3>Siembra con dron</h3>
+      <p>Siembra de cobertura, pasturas y cultivos de servicio.</p>
+      <ul>
+        <li>Siembra sin remover suelo</li>
+        <li>Uniforme y rápida (varias ha/hora)</li>
+        <li>Perfecta para entre-cultivos</li>
+        <li>Sin compactación</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="como" style="background:white;border-top:1px solid var(--borde);border-bottom:1px solid var(--borde);max-width:none">
+  <div style="max-width:1100px;margin:0 auto;padding:0 1.5rem">
+    <div class="seccion-titulo">
+      <p class="etiqueta">Cómo trabajamos</p>
+      <h2>En 3 pasos, sin vueltas</h2>
+    </div>
+    <div class="pasos">
+      <div class="paso">
+        <div class="num">1</div>
+        <h3>Nos pasás el lote</h3>
+        <p>Ubicación por WhatsApp + hectáreas y qué querés aplicar. Te cotizamos en el día.</p>
+      </div>
+      <div class="paso">
+        <div class="num">2</div>
+        <h3>Volamos</h3>
+        <p>Coordinamos ventana de viento y volamos. No necesitás estar en el campo.</p>
+      </div>
+      <div class="paso">
+        <div class="num">3</div>
+        <h3>Recibís informe</h3>
+        <p>Mapa de aplicación, fecha, producto y dosis. Para tu ingeniero o para vos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="cobertura">
+    <div>
+      <h2 style="font-size:1.4rem;margin-bottom:.5rem">Cobertura en Entre Ríos</h2>
+      <p style="color:var(--texto-claro);font-size:.92rem">Base en Concepción del Uruguay. Nos movemos a campo. Consultá si estás fuera de zona — vemos logística.</p>
+      <ul>
+        <li>Concepción del Uruguay, Colón, San José, Villa Elisa</li>
+        <li>Gualeguaychú, Urdinarrain, Basavilbaso</li>
+        <li>Traslado a acordar según hectáreas</li>
+      </ul>
+      <a href="https://wa.me/5493447123456?text=Hola%20Fede%2C%20mi%20campo%20est%C3%A1%20en%20__%20%C2%BFme%20cubr%C3%ADs%20esa%20zona%3F" class="btn btn-ghost" style="margin-top:1rem" target="_blank">Consultar mi zona</a>
+    </div>
+    <div class="cobertura-mapa">
+      <div>
+        <div class="pin">🗺️</div>
+        <strong style="display:block;margin-top:.4rem;color:var(--verde-oscuro)">Mapa de cobertura</strong>
+        <span style="font-size:.8rem;color:var(--texto-claro)">Acá va mapa real o foto aérea<br>de lotes trabajados</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:1rem">
+  <div class="seccion-titulo">
+    <p class="etiqueta">En acción</p>
+    <h2>Dron trabajando</h2>
+  </div>
+  <div class="galeria">
+    <div class="foto"><img src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=600&q=80" alt="Campo"><span class="label">Pulverización</span></div>
+    <div class="foto"><img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&q=80" alt="Campo verde"><span class="label">Lote aplicado</span></div>
+    <div class="foto"><img src="https://images.unsplash.com/photo-1500076656116-558758c991c1?w=600&q=80" alt="Dron"><span class="label">Siembra</span></div>
+    <div class="foto"><img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80" alt="Campo"><span class="label">Informe con mapa</span></div>
+  </div>
+  <p style="text-align:center;color:var(--texto-claro);font-size:.82rem;margin-top:.8rem">Fotos de ejemplo — se reemplazan por fotos/videos reales de tu equipo en 5 minutos.</p>
+</section>
+
+<section style="max-width:700px">
+  <div class="seccion-titulo">
+    <p class="etiqueta">Dudas comunes</p>
+    <h2>Lo que más nos preguntan</h2>
+  </div>
+  <div class="faq">
+    <div class="faq-item">
+      <h3>💬 ¿Cuántas hectáreas hacen por hora?</h3>
+      <p>Depende de dosis y producto, pero aprox 8-12 ha/h en pulverización. Te decimos el rinde exacto al cotizar.</p>
+    </div>
+    <div class="faq-item">
+      <h3>💬 ¿Necesito estar en el campo?</h3>
+      <p>No. Con que nos pases ubicación y nos dejes acceso alcanza. Te mandamos video del vuelo y el informe después.</p>
+    </div>
+    <div class="faq-item">
+      <h3>💬 ¿Qué productos usan?</h3>
+      <p>Los que indique tu ingeniero. Nosotros aplicamos, vos elegís el principio activo y dosis.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="cta-final">
+    <h2>¿Cotizamos tu lote?</h2>
+    <p>Mandanos hectáreas, zona y qué querés aplicar. Te respondemos en el día con precio por ha y fecha disponible.</p>
+    <a href="https://wa.me/5493447123456?text=Hola%20Fede%2C%20quiero%20cotizar%3A%20__%20ha%20en%20__%20para%20__%20(pulverizar%2Fsembrar).%20%C2%BFCu%C3%A1ndo%20podr%C3%ADan%20pasar%3F" class="btn btn-primary" target="_blank">Pedir cotización por WhatsApp →</a>
+    <p style="margin-top:.9rem;opacity:.7;font-size:.8rem">Respuesta en < 24 hs · Sin compromiso</p>
+  </div>
+</section>
+
+<footer>
+  <p><strong>AgroDron</strong> · Pulverización y siembra con dron · Entre Ríos</p>
+  <p style="margin-top:.3rem">Demo creada por Valentín Romero · vvalenromero.github.io/negocio/demo-dron/ · Reemplazar tel. 5493447123456 por el real de Fede</p>
+</footer>
+
+<a href="https://wa.me/5493447123456?text=Hola%20quiero%20cotizar%20dron" class="wa-float" target="_blank" aria-label="WhatsApp">✆</a>
+</body>
+</html>

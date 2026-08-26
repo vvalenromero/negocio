@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EFS Bot — Demo funcionando</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Manrope',sans-serif;background:#f0f4f0;color:#1a2e1e;line-height:1.5}
+header{background:#0f2e1f;color:white;padding:1rem 1.5rem;display:flex;justify-content:space-between;align-items:center}
+header .logo{font-weight:800} header small{opacity:.7;font-size:.75rem}
+.wrap{max-width:1000px;margin:0 auto;padding:1.5rem;display:grid;grid-template-columns:380px 1fr;gap:1.2rem}
+.card{background:white;border:1px solid #dbe5db;border-radius:12px;padding:1rem}
+.card h3{font-size:.95rem;margin-bottom:.5rem;color:#0f2e1f}
+table{width:100%;border-collapse:collapse;font-size:.82rem}
+th{border-bottom:2px solid #dbe5db;padding:.4rem;text-align:left;font-size:.7rem;color:#5a6b5e;text-transform:uppercase}
+td{padding:.4rem;border-bottom:1px solid #eef2ee}
+.chat{height:420px;display:flex;flex-direction:column}
+.chat-log{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:.5rem;padding:.5rem 0}
+.msg{max-width:80%;padding:.6rem .8rem;border-radius:12px;font-size:.88rem}
+.msg.user{background:#1a4a32;color:white;align-self:flex-end;border-bottom-right-radius:4px}
+.msg.bot{background:#e8f5e9;border:1px solid #c8e6c9;align-self:flex-start;border-bottom-left-radius:4px}
+.chat-input{display:flex;gap:.5rem;margin-top:.6rem}
+.chat-input input{flex:1;padding:.6rem .8rem;border:1px solid #dbe5db;border-radius:8px;font-family:inherit}
+.chat-input button{background:#d4a017;border:none;padding:.6rem 1rem;border-radius:8px;font-weight:700;cursor:pointer}
+.sugerencias{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.6rem}
+.sugerencias button{background:#f0f4f0;border:1px solid #dbe5db;padding:.3rem .6rem;border-radius:20px;font-size:.75rem;cursor:pointer}
+.sugerencias button:hover{background:#e8f5e9}
+@media(max-width:860px){.wrap{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+<div><div class="logo">EFS BOT — DEMO REAL</div><small>Planilla → Chat → Respuesta</small></div>
+<div style="font-size:.75rem;opacity:.8">Planilla de ejemplo · 8 vuelos</div>
+</header>
+
+<div class="wrap">
+<div class="card">
+<h3>📋 Planilla (como la de Fede)</h3>
+<table id="tabla">
+<thead><tr><th>Campo</th><th>Ha</th><th>Producto</th><th>Fecha</th></tr></thead>
+<tbody>
+<tr><td>La Esperanza</td><td>18</td><td>Glifosato</td><td>2026-08-18</td></tr>
+<tr><td>Don Néstor</td><td>15</td><td>2,4-D</td><td>2026-08-19</td></tr>
+<tr><td>El Ombú</td><td>9</td><td>Glifosato</td><td>2026-08-19</td></tr>
+<tr><td>La Esperanza</td><td>12</td><td>Insecticida</td><td>2026-08-22</td></tr>
+<tr><td>Don Néstor</td><td>22</td><td>Glifosato</td><td>2026-08-23</td></tr>
+<tr><td>El Ombú</td><td>28</td><td>— pendiente —</td><td>—</td></tr>
+<tr><td>La Celia</td><td>14</td><td>Glifosato</td><td>2026-08-24</td></tr>
+<tr><td>La Esperanza</td><td>10</td><td>Fungicida</td><td>2026-08-25</td></tr>
+</tbody>
+</table>
+<p style="font-size:.75rem;color:#5a6b5e;margin-top:.6rem">↑ Esta es la planilla que Fede carga. El bot la lee.</p>
+</div>
+
+<div class="card chat">
+<h3>💬 Preguntale al bot</h3>
+<div class="chat-log" id="log">
+<div class="msg bot">¡Hola! Soy EFS Bot. Cargué tu planilla de 8 vuelos. Preguntame: <em>"¿cuántas ha fumigué esta semana?"</em> o <em>"¿qué lote falta?"</em></div>
+</div>
+<div class="sugerencias">
+<button onclick="preguntar('¿Cuántas hectáreas fumigué esta semana?')">¿Cuántas ha esta semana?</button>
+<button onclick="preguntar('¿Qué lote falta sembrar?')">¿Qué falta?</button>
+<button onclick="preguntar('¿Cuántas ha en La Esperanza?')">¿Ha en La Esperanza?</button>
+</div>
+<div class="chat-input">
+<input id="input" placeholder="Escribí tu pregunta..." onkeydown="if(event.key==='Enter') enviar()">
+<button onclick="enviar()">Enviar</button>
+</div>
+</div>
+</div>
+
+<script>
+const datos = [
+ {campo:"La Esperanza", ha:18, producto:"Glifosato", fecha:"2026-08-18"},
+ {campo:"Don Néstor", ha:15, producto:"2,4-D", fecha:"2026-08-19"},
+ {campo:"El Ombú", ha:9, producto:"Glifosato", fecha:"2026-08-19"},
+ {campo:"La Esperanza", ha:12, producto:"Insecticida", fecha:"2026-08-22"},
+ {campo:"Don Néstor", ha:22, producto:"Glifosato", fecha:"2026-08-23"},
+ {campo:"La Celia", ha:14, producto:"Glifosato", fecha:"2026-08-24"},
+ {campo:"La Esperanza", ha:10, producto:"Fungicida", fecha:"2026-08-25"},
+];
+function log(t, quien){
+ const d=document.createElement('div');
+ d.className='msg '+quien;
+ d.innerHTML=t;
+ document.getElementById('log').appendChild(d);
+ document.getElementById('log').scrollTop=9999;
+}
+function preguntar(t){ document.getElementById('input').value=t; enviar(); }
+function enviar(){
+ const inp=document.getElementById('input');
+ const q=inp.value.trim();
+ if(!q) return;
+ log(q,'user');
+ inp.value='';
+ setTimeout(()=> responder(q), 600);
+}
+function responder(q){
+ q=q.toLowerCase();
+ let r="";
+ if(q.includes("cuantas") && q.includes("semana")){
+   const total = datos.filter(d=> d.fecha>="2026-08-18").reduce((a,b)=>a+b.ha,0);
+   r=`Esta semana: <strong>${total} ha</strong> en ${datos.length-1} vuelos. El mayor fue Don Néstor (22 ha el 23/08).`;
+ } else if(q.includes("falta") || q.includes("pendiente")){
+   r=`Te falta <strong>El Ombú — 28 ha</strong> para sembrar. Figura como pendiente en la planilla.`;
+ } else if(q.includes("esperanza")){
+   const t= datos.filter(d=>d.campo.includes("Esperanza")).reduce((a,b)=>a+b.ha,0);
+   r=`En <strong>La Esperanza</strong> hiciste <strong>${t} ha</strong> en 3 vuelos (18+12+10).`;
+ } else if(q.includes("cuantas") && q.includes("ha")){
+   const t= datos.reduce((a,b)=>a+b.ha,0);
+   r=`Total registrado: <strong>${t} ha</strong> en ${datos.length} registros (1 pendiente).`;
+ } else if(q.includes("producto") || q.includes("glifosato")){
+   const c= datos.filter(d=>d.producto==="Glifosato").length;
+   r=`<strong>Glifosato</strong> se usó en ${c} vuelos, 54 ha totales.`;
+ } else {
+   r=`Puedo responder: <em>"¿cuántas ha esta semana?"</em>, <em>"¿qué falta?"</em>, <em>"¿cuántas ha en La Esperanza?"</em>. Probá con esos.`;
+ }
+ log(r,'bot');
+}
+</script>
+</body>
+</html>

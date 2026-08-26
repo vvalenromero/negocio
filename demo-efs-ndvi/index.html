@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EFS Agro · IA + Dron · Conteo y NDVI | Demo</title>
+<meta name="description" content="Demo NDVI para EFS Agro: 1980 árboles contados con IA, 139 estresados detectados por NDVI que a ojo no se ven.">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--verde:#1a4a32;--verde-oscuro:#0f2e1f;--verde-claro:#e8f5e9;--ambar:#d4a017;--naranja:#e85d04;--rojo:#d90429;--fondo:#f8faf8;--texto:#1a2e1e;--texto-claro:#5a6b5e;--borde:#e0e8e0;--radius:14px}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:'Manrope',sans-serif;background:var(--fondo);color:var(--texto);line-height:1.6}
+h1,h2,h3{font-family:'Schibsted Grotesk',sans-serif;color:var(--verde-oscuro);letter-spacing:-.02em}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);padding:.8rem 1.5rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--borde)}
+.logo{font-weight:800;font-size:1.2rem;color:var(--verde-oscuro)} .logo span{color:var(--ambar)} .logo small{display:block;font-weight:500;font-size:.68rem;color:var(--texto-claro);letter-spacing:.08em;text-transform:uppercase;margin-top:-2px}
+.cta-nav{background:var(--verde);color:white;padding:.5rem .9rem;border-radius:8px;text-decoration:none;font-weight:600;font-size:.85rem}
+.hero{max-width:1100px;margin:0 auto;padding:5.5rem 1.5rem 2rem;display:grid;grid-template-columns:1.1fr .9fr;gap:1.5rem;align-items:center}
+.hero .etiqueta{display:inline-block;background:var(--verde-claro);color:var(--verde);padding:.3rem .7rem;border-radius:20px;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.6rem}
+.hero h1{font-size:clamp(1.9rem,4vw,2.9rem);line-height:1.05;margin-bottom:.6rem}
+.hero h1 em{font-style:normal;color:var(--naranja)}
+.hero p{color:var(--texto-claro);margin-bottom:1rem}
+.stats{display:flex;gap:1rem;margin-top:.8rem}
+.stat{background:white;border:1px solid var(--borde);border-radius:10px;padding:.7rem .9rem;text-align:center;flex:1}
+.stat strong{font-size:1.3rem;color:var(--verde-oscuro);display:block} .stat span{font-size:.7rem;color:var(--texto-claro);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.stat.alert{border-color:var(--rojo);background:#fff0f0} .stat.alert strong{color:var(--rojo)}
+section{max-width:1100px;margin:0 auto;padding:2rem 1.5rem}
+.mapa{background:white;border:1px solid var(--borde);border-radius:14px;overflow:hidden;display:grid;grid-template-columns:1fr 320px}
+.mapa-visual{height:420px;background:#0f2e1f;position:relative;overflow:hidden;display:grid;grid-template-columns:repeat(20,1fr);grid-template-rows:repeat(14,1fr);gap:2px;padding:8px}
+.celda{border-radius:3px;opacity:.9}
+.verde{background:#2d6a4f} .verde-claro{background:#52b788} .amarillo{background:#f59e0b} .rojo{background:#d90429}
+.mapa-leyenda{padding:1.2rem;border-left:1px solid var(--borde)}
+.leyenda{display:flex;align-items:center;gap:.5rem;margin:.4rem 0;font-size:.82rem}
+.leyenda i{width:14px;height:14px;border-radius:3px;display:inline-block}
+.tabla{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:.8rem}
+.tabla th{ text-align:left;padding:.5rem;border-bottom:2px solid var(--borde);font-size:.75rem;color:var(--texto-claro);text-transform:uppercase}
+.tabla td{padding:.5rem;border-bottom:1px solid var(--borde)}
+.badge{padding:.15rem .4rem;border-radius:6px;font-size:.7rem;font-weight:700}
+.badge-rojo{background:#ffe0e0;color:var(--rojo)} .badge-verde{background:var(--verde-claro);color:var(--verde)}
+.pasos{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem}
+.paso{background:white;border:1px solid var(--borde);border-radius:12px;padding:1rem;text-align:center}
+.paso .num{width:28px;height:28px;background:var(--verde);color:white;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:.8rem;margin:0 auto .5rem}
+.cta-final{background:var(--verde-oscuro);color:white;border-radius:14px;padding:2rem;text-align:center}
+.btn{padding:.8rem 1.1rem;border-radius:10px;text-decoration:none;font-weight:700;display:inline-flex;gap:.4rem;align-items:center;justify-content:center}
+.btn-primary{background:var(--ambar);color:var(--texto)}
+footer{text-align:center;padding:1.2rem;color:var(--texto-claro);font-size:.78rem;border-top:1px solid var(--borde);margin-top:1rem}
+@media(max-width:860px){.hero{grid-template-columns:1fr;padding:5rem 1.2rem 1.5rem} .mapa{grid-template-columns:1fr} .mapa-visual{height:320px} .pasos{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<nav><div class="logo">EFS <span>AGRO</span><small>Sustentable · IA + Dron</small></div><a href="https://wa.me/5493447123456?text=Hola%20Fede%20vi%20la%20demo%20NDVI" class="cta-nav" target="_blank">Ver demo en vivo</a></nav>
+
+<header class="hero">
+<div>
+<span class="etiqueta">🧠 IA + Dron multiespectral · Demo para EFS</span>
+<h1>1980 árboles contados, <em>139 estresados que a ojo no se ven</em></h1>
+<p>Como en el reel de bioingemx: vuelo con dron, ortomosaico, modelo Deep Learning para copas y NDVI real de la banda infrarroja. Cada árbol con ID, tamaño y vigor.</p>
+<div class="stats">
+<div class="stat"><strong>1.980</strong><span>árboles con ID</span></div>
+<div class="stat alert"><strong>139</strong><span>estresados (NDVI)</span></div>
+<div class="stat"><strong>7%</strong><span>estrés oculto</span></div>
+</div>
+</div>
+<div style="background:white;border:1px solid var(--borde);border-radius:14px;padding:1rem">
+<div style="font-weight:700;margin-bottom:.5rem">¿Qué detecta el NDVI?</div>
+<div style="height:180px;background:linear-gradient(90deg,#d90429 0%,#f59e0b 40%,#52b788 70%,#2d6a4f 100%);border-radius:10px;position:relative"></div>
+<div style="display:flex;justify-content:space-between;font-size:.7rem;color:var(--texto-claro);margin-top:.3rem"><span>Estrés</span><span>Saludable</span></div>
+<p style="font-size:.82rem;color:var(--texto-claro);margin-top:.6rem">A ojo todos se ven verdes y grandes. El NDVI dice la verdad por dentro.</p>
+</div>
+</header>
+
+<section>
+<div class="mapa">
+<div class="mapa-visual" id="mapa">
+<!-- Generado por JS -->
+</div>
+<div class="mapa-leyenda">
+<strong>Mapa NDVI por copa</strong>
+<p style="font-size:.82rem;color:var(--texto-claro);margin:.4rem 0 .6rem">Cada celda es una copa detectada por IA.</p>
+<div class="leyenda"><i style="background:#2d6a4f"></i> Sano (NDVI >0.65)</div>
+<div class="leyenda"><i style="background:#52b788"></i> Vigor medio (0.5-0.65)</div>
+<div class="leyenda"><i style="background:#f59e0b"></i> Alerta (0.35-0.5)</div>
+<div class="leyenda"><i style="background:#d90429"></i> Estrés (<0.35) — 139</div>
+<div style="margin-top:1rem;padding:.8rem;background:var(--verde-claro);border-radius:8px;font-size:.82rem">
+<strong>Ejemplo:</strong> Árbol #842 — copa grande (4.2m) pero NDVI 0.31 → estresado. A ojo parecía sano.
+</div>
+<a href="https://wa.me/5493447123456?text=Hola%20quiero%20ver%20el%20mapa%20NDVI%20para%20mi%20lote" class="btn btn-primary" style="width:100%;margin-top:.8rem" target="_blank">Pedir mapa para mi lote →</a>
+</div>
+</div>
+</section>
+
+<section>
+<div style="background:white;border:1px solid var(--borde);border-radius:12px;overflow:hidden">
+<table class="tabla">
+<thead><tr><th>ID Árbol</th><th>Copa (m)</th><th>NDVI</th><th>Estado</th></tr></thead>
+<tbody>
+<tr><td>#842</td><td>4.2</td><td>0.31</td><td><span class="badge badge-rojo">Estrés oculto</span></td></tr>
+<tr><td>#1.201</td><td>3.8</td><td>0.28</td><td><span class="badge badge-rojo">Estrés oculto</span></td></tr>
+<tr><td>#56</td><td>4.5</td><td>0.72</td><td><span class="badge badge-verde">Sano</span></td></tr>
+<tr><td>#1.103</td><td>2.9</td><td>0.41</td><td><span class="badge" style="background:#fff3cd">Alerta</span></td></tr>
+<tr><td>#412</td><td>3.5</td><td>0.68</td><td><span class="badge badge-verde">Sano</span></td></tr>
+</tbody>
+</table>
+<p style="padding:.8rem;font-size:.78rem;color:var(--texto-claro);text-align:center">Demo con 5 de 1980 árboles. El CSV completo se exporta para prescripción.</p>
+</div>
+</section>
+
+<section>
+<div style="text-align:center;max-width:600px;margin:0 auto .8rem"><p style="color:var(--ambar);font-weight:700;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase">Cómo se hace</p><h2>Del vuelo al mapa en 4 pasos</h2></div>
+<div class="pasos">
+<div class="paso"><div class="num">1</div><strong>Vuelo</strong><div style="font-size:.82rem;color:var(--texto-claro)">Dron multiespectral, 80m, 75% solape</div></div>
+<div class="paso"><div class="num">2</div><strong>Ortomosaico</strong><div style="font-size:.82rem;color:var(--texto-claro)">Pix4D / ODM, 2cm/píxel</div></div>
+<div class="paso"><div class="num">3</div><strong>IA Copas</strong><div style="font-size:.82rem;color:var(--texto-claro)">YOLOv8-seg entrenado con tus anotaciones</div></div>
+<div class="paso"><div class="num">4</div><strong>NDVI</strong><div style="font-size:.82rem;color:var(--texto-claro)">(NIR-Rojo)/(NIR+Rojo) por copa</div></div>
+</div>
+</section>
+
+<section><div class="cta-final"><h2 style="color:white">¿Lo probamos en un lote de EFS?</h2><p style="opacity:.9;max-width:520px;margin:.4rem auto 1rem">Vuelo demo de 10 ha + mapa NDVI con IA. Te muestro los estresados ocultos sin compromiso.</p><a href="https://wa.me/5493447123456?text=Hola%20Fede%20quiero%20probar%20el%20mapa%20NDVI%20en%20un%20lote" class="btn btn-primary" target="_blank">Probar en mi lote →</a><div style="font-size:.75rem;opacity:.7;margin-top:.5rem">Inspirado en bioingemx · Adaptado para EFS Agro Sustentable</div></div></section>
+
+<footer>Demo NDVI para EFS Agro · Por Valentín Romero · vvalenromero.github.io/negocio/demo-efs-ndvi/ · Datos de ejemplo</footer>
+
+<script>
+// Genera mapa fake NDVI
+const mapa = document.getElementById('mapa');
+const colors = ['verde','verde','verde','verde-claro','verde','amarillo','rojo'];
+for(let i=0;i<280;i++){
+  const d=document.createElement('div');
+  const r=Math.random();
+  let c='verde';
+  if(r>0.93) c='rojo'; else if(r>0.85) c='amarillo'; else if(r>0.7) c='verde-claro';
+  d.className='celda '+c;
+  d.title=c;
+  mapa.appendChild(d);
+}
+</script>
+</body>
+</html>

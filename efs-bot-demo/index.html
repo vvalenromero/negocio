@@ -98,25 +98,37 @@ function enviar(){
  inp.value='';
  setTimeout(()=> responder(q), 600);
 }
-function responder(q){
- q=q.toLowerCase();
+function normalizar(t){
+ return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[¿?¡!.,]/g,"").trim();
+}
+let ultimoQ = "";
+function responder(qOriginal){
+ const q = normalizar(qOriginal);
+ // Evita spam si repite exactamente lo mismo seguido
+ if(q === ultimoQ){
+   log(`Ya te respondí eso arriba ☝️ — ¿querés que lo detalle por lote o por fecha?`,'bot');
+   return;
+ }
+ ultimoQ = q;
  let r="";
  if(q.includes("cuantas") && q.includes("semana")){
    const total = datos.filter(d=> d.fecha>="2026-08-18").reduce((a,b)=>a+b.ha,0);
-   r=`Esta semana: <strong>${total} ha</strong> en ${datos.length-1} vuelos. El mayor fue Don Néstor (22 ha el 23/08).`;
+   r=`<strong>Esta semana (18-25/08): ${total} ha</strong> en 7 vuelos completados.<br>Desglose: La Esperanza 40 ha · Don Néstor 37 ha · El Ombú 9 ha · La Celia 14 ha.<br><span style="color:#5a6b5e;font-size:.82rem">Mayor vuelo: Don Néstor, 22 ha el 23/08.</span>`;
  } else if(q.includes("falta") || q.includes("pendiente")){
-   r=`Te falta <strong>El Ombú — 28 ha</strong> para sembrar. Figura como pendiente en la planilla.`;
+   r=`<strong>Pendiente:</strong> El Ombú — <strong>28 ha</strong> para sembrar.<br><span style="color:#5a6b5e;font-size:.82rem">Figura sin fecha en la planilla. ¿Querés que lo agende?</span>`;
  } else if(q.includes("esperanza")){
    const t= datos.filter(d=>d.campo.includes("Esperanza")).reduce((a,b)=>a+b.ha,0);
-   r=`En <strong>La Esperanza</strong> hiciste <strong>${t} ha</strong> en 3 vuelos (18+12+10).`;
+   r=`<strong>La Esperanza:</strong> ${t} ha en 3 vuelos (18 ha 18/08 + 12 ha 22/08 + 10 ha 25/08).<br><span style="color:#5a6b5e;font-size:.82rem">Promedio: 13,3 ha/vuelo.</span>`;
  } else if(q.includes("cuantas") && q.includes("ha")){
-   const t= datos.reduce((a,b)=>a+b.ha,0);
-   r=`Total registrado: <strong>${t} ha</strong> en ${datos.length} registros (1 pendiente).`;
- } else if(q.includes("producto") || q.includes("glifosato")){
+   const t= datos.reduce((a,b)=>a+b.ha,0) - 28; // excluye pendiente
+   const totalConPendiente = datos.reduce((a,b)=> isNaN(b.ha)?a:a+b.ha,0);
+   r=`<strong>Total registrado:</strong> ${t} ha completadas + 28 ha pendientes = ${t+28} ha en planilla.<br><span style="color:#5a6b5e;font-size:.82rem">${datos.length} registros (1 pendiente).</span>`;
+ } else if(q.includes("glifosato") || q.includes("producto")){
    const c= datos.filter(d=>d.producto==="Glifosato").length;
-   r=`<strong>Glifosato</strong> se usó en ${c} vuelos, 54 ha totales.`;
+   const ha= datos.filter(d=>d.producto==="Glifosato").reduce((a,b)=>a+b.ha,0);
+   r=`<strong>Glifosato:</strong> ${c} vuelos · ${ha} ha totales.<br><span style="color:#5a6b5e;font-size:.82rem">Último: La Celia, 14 ha el 24/08.</span>`;
  } else {
-   r=`Puedo responder: <em>"¿cuántas ha esta semana?"</em>, <em>"¿qué falta?"</em>, <em>"¿cuántas ha en La Esperanza?"</em>. Probá con esos.`;
+   r=`No entendí bien. Puedo ayudarte con:<br>• <em>"¿Cuántas ha esta semana?"</em><br>• <em>"¿Qué falta?"</em><br>• <em>"¿Ha en La Esperanza?"</em><br>• <em>"¿Cuántas ha en total?"</em><br>Probá con una de esas.`;
  }
  log(r,'bot');
 }

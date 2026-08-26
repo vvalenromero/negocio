@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cabañas Los Pinos · Reservá online | Entre Ríos</title>
+<meta name="description" content="Cabañas en Entre Ríos. Reservá online sin llamar, ve disponibilidad y pagá seña por WhatsApp.">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--verde:#1a4a32;--verde-oscuro:#0f2e1f;--verde-claro:#e8f5e9;--ambar:#d4a017;--ambar-claro:#f5d547;--fondo:#f8faf8;--tarjeta:white;--texto:#1a2e1e;--texto-claro:#5a6b5e;--borde:#e0e8e0;--radius:14px}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:'Manrope',system-ui,sans-serif;background:var(--fondo);color:var(--texto);line-height:1.65}
+h1,h2,h3{font-family:'Schibsted Grotesk',sans-serif;color:var(--verde-oscuro);letter-spacing:-.02em}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);padding:.85rem 1.5rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--borde)}
+.logo{font-weight:800;font-size:1.25rem;color:var(--verde-oscuro)} .logo span{color:var(--ambar)}
+.logo small{display:block;font-weight:500;font-size:.7rem;color:var(--texto-claro);letter-spacing:.08em;text-transform:uppercase;margin-top:-3px}
+.cta-nav{background:var(--verde);color:white;padding:.6rem 1rem;border-radius:8px;text-decoration:none;font-weight:600;font-size:.88rem}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:2rem;align-items:center;max-width:1100px;margin:0 auto;padding:6rem 1.5rem 2.5rem}
+.hero .etiqueta{display:inline-block;background:var(--verde-claro);color:var(--verde);padding:.3rem .7rem;border-radius:20px;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.8rem}
+.hero h1{font-size:clamp(2rem,4.5vw,3.1rem);line-height:1.05;margin-bottom:.7rem}
+.hero h1 em{font-style:normal;color:var(--ambar)}
+.hero p{color:var(--texto-claro);margin-bottom:1.2rem}
+.btn{padding:.85rem 1.2rem;border-radius:10px;text-decoration:none;font-weight:700;display:inline-flex;gap:.4rem;align-items:center}
+.btn-primary{background:var(--ambar);color:var(--texto)}
+.btn-ghost{background:white;border:1.5px solid var(--borde);color:var(--verde)}
+.hero-visual{background:linear-gradient(160deg,var(--verde),var(--verde-oscuro));border-radius:16px;aspect-ratio:4/3;overflow:hidden;position:relative;display:grid;place-items:center;color:white}
+.hero-visual::before{content:"";position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&q=80') center/cover;opacity:.4}
+.hero-visual-inner{position:relative;text-align:center;padding:1.5rem}
+.hero-stats{display:flex;gap:1rem;margin-top:1rem} .stat strong{font-size:1.25rem;color:var(--verde-oscuro)} .stat span{font-size:.72rem;color:var(--texto-claro);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+section{max-width:1100px;margin:0 auto;padding:2.8rem 1.5rem}
+.seccion-titulo{text-align:center;max-width:600px;margin:0 auto 1.8rem} .seccion-titulo .etiqueta{color:var(--ambar);font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase} .seccion-titulo h2{font-size:1.7rem;margin-top:.3rem}
+.cabanas{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.cabana{background:white;border:1px solid var(--borde);border-radius:14px;overflow:hidden}
+.cabana .foto{height:160px;background:var(--verde-oscuro);position:relative;overflow:hidden}
+.cabana .foto img{width:100%;height:100%;object-fit:cover}
+.cabana .badge{position:absolute;top:.6rem;right:.6rem;background:var(--ambar);color:var(--texto);font-size:.65rem;font-weight:800;padding:.2rem .5rem;border-radius:20px}
+.cabana .info{padding:1.1rem}
+.cabana h3{font-size:1rem;margin-bottom:.2rem}
+.cabana .precio{font-weight:800;color:var(--verde);margin-top:.4rem}
+.cabana .precio small{font-weight:500;color:var(--texto-claro);font-size:.78rem}
+.calendario{background:white;border:1px solid var(--borde);border-radius:14px;padding:1.5rem;display:grid;grid-template-columns:1fr 340px;gap:1.5rem;align-items:center}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.3rem;text-align:center;font-size:.82rem}
+.cal-grid div{padding:.4rem;border-radius:6px} .cal-grid .head{font-weight:700;color:var(--texto-claro);font-size:.7rem} .cal-grid .dia{border:1px solid var(--borde)} .cal-grid .ocupado{background:var(--borde);color:var(--texto-claro)} .cal-grid .libre{background:var(--verde-claro);border-color:var(--verde);cursor:pointer} .cal-grid .hoy{background:var(--ambar)}
+.servicios{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem}
+.serv{ background:white;border:1px solid var(--borde);border-radius:12px;padding:1rem;text-align:center}
+.serv .ico{font-size:1.4rem;margin-bottom:.3rem}
+.cta-final{background:var(--verde-oscuro);color:white;border-radius:14px;padding:2.2rem;text-align:center}
+.cta-final h2{color:white}
+.wa-float{position:fixed;bottom:1.2rem;right:1.2rem;background:#25D366;color:white;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+footer{text-align:center;padding:1.5rem;color:var(--texto-claro);font-size:.8rem;border-top:1px solid var(--borde);margin-top:1rem}
+@media(max-width:860px){.hero{grid-template-columns:1fr;padding:5rem 1.2rem 1.5rem} .cabanas{grid-template-columns:1fr} .calendario{grid-template-columns:1fr} .servicios{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<nav><div class="logo">LOS <span>PINOS</span><small>Cabañas · Entre Ríos</small></div><a href="https://wa.me/5493447123456?text=Hola%20quiero%20reservar%20caba%C3%B1a" class="cta-nav" target="_blank">Reservar</a></nav>
+<header class="hero">
+<div>
+<span class="etiqueta">🏡 San José · Colón · 4.9 ★ (87 reseñas)</span>
+<h1>Reservá tu cabaña <em>online, sin llamar</em></h1>
+<p>Mirá disponibilidad en tiempo real, elegí tu cabaña y confirmá por WhatsApp con seña. Como en Munay Ki, que ya funciona.</p>
+<a href="#cabanas" class="btn btn-primary">Ver cabañas y precios</a>
+<a href="https://wa.me/5493447123456?text=Hola%20quiero%20consultar%20disponibilidad%20para%20__%20personas%20del%20__%20al%20__" class="btn btn-ghost" target="_blank">Consultar por WhatsApp</a>
+<div class="hero-stats"><div class="stat"><strong>+2.100</strong><span>noches reservadas</span></div><div class="stat"><strong>24h</strong><span>confirmación</span></div><div class="stat"><strong>4.9★</strong><span>Google</span></div></div>
+</div>
+<div class="hero-visual"><div class="hero-visual-inner"><div style="font-size:3rem">🏡</div><strong>Cabaña real acá</strong><div style="font-size:.8rem;opacity:.85">Foto de tu cabaña — reemplazable</div></div></div>
+</header>
+
+<section id="cabanas">
+<div class="seccion-titulo"><p class="etiqueta">Cabañas</p><h2>Elegí la tuya</h2></div>
+<div class="cabanas">
+<div class="cabana"><div class="foto"><img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80" alt="Cabaña"><span class="badge">Para 2</span></div><div class="info"><h3>Cabaña del Bosque — 2 pers.</h3><p style="font-size:.85rem;color:var(--texto-claro)">1 dorm, cocina, parrilla, vista al río.</p><div class="precio">$45.000 <small>/ noche</small></div></div></div>
+<div class="cabana"><div class="foto"><img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600&q=80" alt="Cabaña"><span class="badge" style="background:var(--verde);color:white">Más reservada</span></div><div class="info"><h3>Cabaña del Río — 4 pers.</h3><p style="font-size:.85rem;color:var(--texto-claro)">2 dorm, pileta compartida, parrilla.</p><div class="precio">$68.000 <small>/ noche</small></div></div></div>
+<div class="cabana"><div class="foto"><img src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=600&q=80" alt="Cabaña"><span class="badge">Para 6</span></div><div class="info"><h3>Cabaña Familiar — 6 pers.</h3><p style="font-size:.85rem;color:var(--texto-claro)">3 dorm, pileta, galería grande.</p><div class="precio">$92.000 <small>/ noche</small></div></div></div>
+</div>
+</section>
+
+<section>
+<div class="calendario">
+<div>
+<h3 style="margin-bottom:.6rem">Disponibilidad en vivo</h3>
+<p style="font-size:.88rem;color:var(--texto-claro);margin-bottom:.8rem">Verde = libre, gris = ocupado. Tocá un día libre y te arma el mensaje.</p>
+<div class="cal-grid">
+<div class="head">L</div><div class="head">M</div><div class="head">M</div><div class="head">J</div><div class="head">V</div><div class="head">S</div><div class="head">D</div>
+<div class="dia ocupado">18</div><div class="dia ocupado">19</div><div class="dia libre">20</div><div class="dia libre">21</div><div class="dia hoy">22</div><div class="dia libre">23</div><div class="dia libre">24</div>
+<div class="dia libre">25</div><div class="dia ocupado">26</div><div class="dia ocupado">27</div><div class="dia libre">28</div><div class="dia libre">29</div><div class="dia libre">30</div><div class="dia libre">31</div>
+</div>
+</div>
+<div style="background:var(--verde-claro);border-radius:10px;padding:1.2rem;text-align:center">
+<strong>Reservá en 1 toque</strong>
+<p style="font-size:.85rem;color:var(--texto-claro);margin:.4rem 0 .8rem">Te abre WhatsApp con las fechas ya cargadas.</p>
+<a href="https://wa.me/5493447123456?text=Hola%20quiero%20reservar%20del%2020%20al%2023%20para%204%20personas" class="btn btn-primary" style="width:100%;justify-content:center" target="_blank">Reservar por WhatsApp →</a>
+<p style="font-size:.72rem;color:var(--texto-claro);margin-top:.5rem">Seña 30% · Cancelación gratis 48h</p>
+</div>
+</div>
+</section>
+
+<section>
+<div class="seccion-titulo"><p class="etiqueta">Servicios</p><h2>Todo incluido</h2></div>
+<div class="servicios">
+<div class="serv"><div class="ico">🏊</div><strong>Pileta</strong><div style="font-size:.78rem;color:var(--texto-claro)">Climatizada</div></div>
+<div class="serv"><div class="ico">🔥</div><strong>Parrilla</strong><div style="font-size:.78rem;color:var(--texto-claro)">Individual</div></div>
+<div class="serv"><div class="ico">📶</div><strong>WiFi</strong><div style="font-size:.78rem;color:var(--texto-claro)">Fibra 100mb</div></div>
+<div class="serv"><div class="ico">🅿️</div><strong>Cochera</strong><div style="font-size:.78rem;color:var(--texto-claro)">Cubierta</div></div>
+</div>
+</section>
+
+<section><div class="cta-final"><h2>¿Vemos tu fecha?</h2><p style="opacity:.9;max-width:500px;margin:.4rem auto 1rem">Decinos cuántas personas y qué fechas, te confirmamos disponibilidad en el día.</p><a href="https://wa.me/5493447123456?text=Hola%20quiero%20reservar%20caba%C3%B1a%20para%20__%20personas%20del%20__%20al%20__" class="btn btn-primary" target="_blank">Consultar disponibilidad →</a></div></section>
+
+<footer><strong>Los Pinos</strong> · Demo por Valentín Romero · vvalenromero.github.io/negocio/demo-cabanas/ · Caso real: Munay Ki (en producción)</footer>
+<a href="https://wa.me/5493447123456" class="wa-float" target="_blank">✆</a>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Control IA — T100 | Demo</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0f0d;color:#e8f5e9;font-family:system-ui,sans-serif;display:flex;flex-direction:column;min-height:100vh}
+.header{background:#111a15;border-bottom:1px solid #1e3328;padding:.7rem 1rem;display:flex;justify-content:space-between;align-items:center}
+.header strong{color:white}
+.tablet{flex:1;display:grid;grid-template-columns:1fr 280px;gap:1rem;padding:1rem;max-width:1100px;margin:0 auto;width:100%}
+.mapa{background:#0f1f16;border:1px solid #1e3328;border-radius:12px;overflow:hidden;position:relative;height:480px}
+.mapa img{width:100%;height:100%;object-fit:cover;opacity:.7}
+.grid{position:absolute;inset:0;display:grid;grid-template-columns:repeat(10,1fr);grid-template-rows:repeat(6,1fr);gap:2px;padding:6px}
+.celda{border:1px dashed rgba(0,255,136,.3);border-radius:4px;position:relative}
+.celda.maleza{border:2px solid #00ff88;background:rgba(0,255,136,.18)}
+.celda.maleza::after{content:"maleza";position:absolute;bottom:2px;left:50%;transform:translateX(-50%);background:#00ff88;color:#000;font-size:.55rem;padding:1px 3px;border-radius:3px;font-weight:700}
+.panel{background:#111a15;border:1px solid #1e3328;border-radius:12px;padding:1rem;display:flex;flex-direction:column;gap:.8rem}
+.btn{width:100%;padding:.8rem;border:none;border-radius:10px;font-weight:800;cursor:pointer}
+.btn-start{background:#00ff88;color:#000}
+.btn-stop{background:#1e3328;color:#8aa89a}
+.status{font-size:.82rem;line-height:1.4}
+.status strong{color:white}
+.log{flex:1;background:#0f1f16;border:1px solid #1e3328;border-radius:8px;padding:.6rem;font-family:monospace;font-size:.72rem;overflow-y:auto;max-height:140px}
+.log div{margin:.2rem 0}
+.log .ia{color:#00ff88}
+</style>
+</head>
+<body>
+<div class="header"><strong>RC Plus — T100 · Control IA</strong><span style="font-size:.75rem;color:#8aa89a">EFS Agro · Demo</span></div>
+<div class="tablet">
+<div class="mapa">
+<img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200&q=80">
+<div class="grid" id="grid"></div>
+</div>
+<div class="panel">
+<div class="status">
+<strong>Estado:</strong> <span id="estado" style="color:#8aa89a">En espera</span><br>
+<strong>IA:</strong> <span id="ia">Desactivada</span><br>
+<strong>Pico:</strong> <span id="pico">Cerrado</span>
+</div>
+<button class="btn btn-start" id="btn" onclick="toggle()">▶ INICIAR MISIÓN IA</button>
+<div class="log" id="log"><div>> Sistema listo</div><div>> Esperando inicio...</div></div>
+<div style="font-size:.72rem;color:#8aa89a;text-align:center">Simulación — la app real manda la orden al T100 vía DJI PSDK</div>
+</div>
+</div>
+<script>
+const grid=document.getElementById('grid');
+for(let i=0;i<60;i++){
+ const d=document.createElement('div');
+ d.className='celda';
+ if([7,14,23,31,44,52].includes(i)) d.classList.add('maleza');
+ grid.appendChild(d);
+}
+let on=false;
+function toggle(){
+ on=!on;
+ document.getElementById('btn').textContent= on ? '■ DETENER' : '▶ INICIAR MISIÓN IA';
+ document.getElementById('btn').className= on ? 'btn btn-stop' : 'btn btn-start';
+ document.getElementById('estado').textContent= on ? 'Volando — IA activa' : 'En espera';
+ document.getElementById('estado').style.color= on ? '#00ff88' : '#8aa89a';
+ document.getElementById('ia').textContent= on ? 'Detectando — 6 malezas' : 'Desactivada';
+ document.getElementById('ia').style.color= on ? '#00ff88' : '#8aa89a';
+ document.getElementById('pico').textContent= on ? 'Abriendo solo en maleza' : 'Cerrado';
+ document.getElementById('pico').style.color= on ? '#00ff88' : '#8aa89a';
+ const log=document.getElementById('log');
+ if(on){
+   log.innerHTML+= '<div class="ia">> IA: 6 malezas detectadas (88-95%)</div><div>> Pico: ABIERTO en celdas 7,14,23</div><div class="ia">> Ahorro: 68% producto</div>';
+ } else {
+   log.innerHTML+= '<div>> Misión detenida</div>';
+ }
+ log.scrollTop=9999;
+}
+</script>
+</body>
+</html>

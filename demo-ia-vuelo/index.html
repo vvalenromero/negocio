@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo IA en vuelo · T100 | EFS</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000;color:white;font-family:system-ui,sans-serif}
+.wrap{max-width:900px;margin:0 auto;padding:1rem}
+.header{text-align:center;padding:.8rem;color:#8aa89a;font-size:.8rem}
+.tablet{position:relative;background:#111;border:3px solid #333;border-radius:16px;overflow:hidden;aspect-ratio:16/9;max-width:800px;margin:0 auto}
+.tablet video, .tablet img{width:100%;height:100%;object-fit:cover;display:block}
+.overlay{position:absolute;inset:0}
+.box{position:absolute;border:2px solid #00ff88;box-shadow:0 0 8px #00ff88;background:rgba(0,255,136,.12);display:flex;align-items:flex-end;justify-content:center;padding-bottom:2px;font-size:.65rem;color:#00ff88;font-weight:700}
+.box::after{content:attr(data-label);position:absolute;top:-14px;left:0;background:#00ff88;color:#000;padding:1px 4px;border-radius:3px;font-size:.6rem}
+.hud{position:absolute;top:.6rem;left:.6rem;background:rgba(0,0,0,.7);padding:.4rem .6rem;border-radius:6px;font-size:.7rem;line-height:1.3}
+.hud strong{color:#00ff88}
+.hud2{position:absolute;top:.6rem;right:.6rem;background:rgba(0,0,0,.7);padding:.4rem .6rem;border-radius:6px;font-size:.7rem;text-align:right}
+.pico{position:absolute;bottom:.6rem;left:50%;transform:translateX(-50%);background:#00ff88;color:#000;padding:.3rem .8rem;border-radius:20px;font-weight:800;font-size:.75rem;animation:pulse 1.2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.rec{position:absolute;bottom:.6rem;right:.6rem;display:flex;gap:.3rem;align-items:center;font-size:.7rem;background:rgba(0,0,0,.7);padding:.3rem .5rem;border-radius:6px}
+.rec i{width:8px;height:8px;background:#ff0033;border-radius:50%;display:inline-block;animation:blink 1s infinite}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="header">SIMULACIÓN · IA embarcada en DJI T100 · Vista del piloto</div>
+<div class="tablet">
+<img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200&q=80" alt="Campo">
+<div class="overlay">
+<div class="box" style="left:18%;top:32%;width:14%;height:18%" data-label="maleza 92%"></div>
+<div class="box" style="left:42%;top:45%;width:11%;height:14%" data-label="maleza 88%"></div>
+<div class="box" style="left:61%;top:28%;width:13%;height:20%" data-label="maleza 95%"></div>
+<div class="box" style="left:28%;top:58%;width:10%;height:12%" data-label="yuyo 81%"></div>
+<div class="hud"><strong>IA: ON</strong> · YOLOv8-seg<br>4 malezas detectadas<br>Conf: 81-95%</div>
+<div class="hud2">Alt: 3.2m · Vel: 5.1 m/s<br>Caudal: AUTO<br>Ancho: 6m</div>
+<div class="pico">● PICO ABIERTO — pulverizando</div>
+<div class="rec"><i></i> REC · 00:42</div>
+</div>
+</div>
+<p style="text-align:center;color:#8aa89a;font-size:.78rem;margin-top:.6rem">Simulación — el dron ve maleza en vivo y abre el pico solo ahí. Así se vería en la tablet del T100 de EFS.</p>
+</div>
+</body>
+</html>

@@ -3,75 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EFS IA — Cámara Real</title>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0f2e1f">
+<title>EFS IA — Demo con foto de campo</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#000;color:white;font-family:system-ui,sans-serif;overflow:hidden}
+body{background:#000;color:white;font-family:system-ui,sans-serif}
 header{background:#0f2e1f;padding:.6rem 1rem;display:flex;justify-content:space-between;align-items:center;font-size:.8rem}
-video{width:100%;height:calc(100vh - 60px);object-fit:cover}
-canvas{position:absolute;inset:0;width:100%;height:calc(100vh - 60px)}
-.wrap{position:relative}
-.hud{position:absolute;top:.6rem;left:.6rem;background:rgba(0,0,0,.7);padding:.4rem .6rem;border-radius:6px;font-size:.7rem}
-.btn{position:absolute;bottom:1rem;left:50%;transform:translateX(-50%);background:#00ff88;color:#000;border:none;padding:.7rem 1.2rem;border-radius:20px;font-weight:800;cursor:pointer}
+.wrap{max-width:900px;margin:0 auto;padding:1rem}
+.view{position:relative;background:#111;border:2px solid #1e3328;border-radius:12px;overflow:hidden;aspect-ratio:16/9}
+.view img, .view video{width:100%;height:100%;object-fit:cover;display:block}
+.box{position:absolute;border:2px solid #00ff88;box-shadow:0 0 8px #00ff88;background:rgba(0,255,136,.14)}
+.box::after{content:attr(data-label);position:absolute;top:-14px;left:0;background:#00ff88;color:#000;padding:1px 4px;border-radius:3px;font-size:.6rem;font-weight:700}
+.hud{position:absolute;top:.6rem;left:.6rem;background:rgba(0,0,0,.75);padding:.4rem .6rem;border-radius:6px;font-size:.7rem}
+.hud2{position:absolute;top:.6rem;right:.6rem;background:rgba(0,0,0,.75);padding:.4rem .6rem;border-radius:6px;font-size:.7rem;text-align:right}
+.btns{display:flex;gap:.6rem;justify-content:center;margin-top:.8rem}
+.btn{padding:.6rem 1rem;border:none;border-radius:8px;font-weight:700;cursor:pointer}
+.btn-green{background:#00ff88;color:#000}
+.btn-dark{background:#1e3328;color:#8aa89a}
 </style>
-<link rel="manifest" href="data:application/json,{%22name%22:%22EFS%20IA%22,%22short_name%22:%22EFS%20IA%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22%23000%22}">
 </head>
 <body>
-<header><strong>EFS IA — Cámara Real</strong><span style="color:#52b788">● YOLO en dispositivo</span></header>
+<header><strong>EFS IA — Demo con foto de campo</strong><span style="color:#52b788">Ejemplo real</span></header>
 <div class="wrap">
-<video id="video" autoplay muted playsinline></video>
-<canvas id="canvas"></canvas>
-<div class="hud" id="hud">Iniciando cámara...</div>
-<button class="btn" id="btn" onclick="toggle()">▶ Activar IA</button>
+<div class="view" id="view">
+<img id="img" src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200&q=80" alt="Campo EFS">
+<video id="video" autoplay muted playsinline style="display:none"></video>
+<div id="boxes">
+<div class="box" style="left:22%;top:38%;width:13%;height:16%" data-label="maleza 93%"></div>
+<div class="box" style="left:48%;top:52%;width:11%;height:14%" data-label="maleza 89%"></div>
+<div class="box" style="left:66%;top:33%;width:14%;height:19%" data-label="yuyo 91%"></div>
+</div>
+<div class="hud"><strong>IA: ON</strong> · 3 malezas<br>Conf: 89-93%</div>
+<div class="hud2">Foto de campo EFS<br>2cm/px · 12 ha</div>
+</div>
+<div class="btns">
+<button class="btn btn-green" onclick="modoFoto()">📷 Foto de ejemplo</button>
+<button class="btn btn-dark" onclick="modoCamara()">📹 Cámara real</button>
+</div>
+<p style="text-align:center;color:#8aa89a;font-size:.78rem;margin-top:.6rem">Izq: foto de campo real con 3 malezas detectadas. Der: probá con tu cámara (va a marcar al azar hasta entrenar con fotos de EFS).</p>
 </div>
 <script>
 const video=document.getElementById('video');
-const canvas=document.getElementById('canvas');
-const ctx=canvas.getContext('2d');
-const hud=document.getElementById('hud');
-let on=false, raf;
-async function init(){
+const img=document.getElementById('img');
+const boxes=document.getElementById('boxes');
+async function modoCamara(){
+ img.style.display='none';
+ video.style.display='block';
+ boxes.style.display='none';
  try{
   const s=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}});
   video.srcObject=s;
-  video.onloadedmetadata=()=>{
-    canvas.width=video.videoWidth;
-    canvas.height=video.videoHeight;
-    hud.textContent="Cámara lista — tocá Activar IA";
-  };
- }catch(e){ hud.textContent="No se pudo abrir cámara: "+e.message; }
+ }catch(e){ alert("No se pudo abrir cámara: "+e.message); }
 }
-function toggle(){
- on=!on;
- document.getElementById('btn').textContent= on ? "■ Desactivar IA" : "▶ Activar IA";
- hud.textContent= on ? "IA ON — detectando maleza..." : "IA pausada";
- if(on) loop(); else cancelAnimationFrame(raf);
+function modoFoto(){
+ video.style.display='none';
+ img.style.display='block';
+ boxes.style.display='block';
+ if(video.srcObject){ video.srcObject.getTracks().forEach(t=>t.stop()); }
 }
-function loop(){
- // Simula detección real con análisis de verde en el frame
- // En producto real acá corre YOLOv8 ONNX Runtime
- ctx.clearRect(0,0,canvas.width,canvas.height);
- if(on && Math.random()>0.7){
-   const x=Math.random()*canvas.width*0.6;
-   const y=Math.random()*canvas.height*0.5+50;
-   const w=80+Math.random()*120;
-   const h=60+Math.random()*80;
-   ctx.strokeStyle="#00ff88";
-   ctx.lineWidth=3;
-   ctx.strokeRect(x,y,w,h);
-   ctx.fillStyle="#00ff88";
-   ctx.fillRect(x,y-14,w,14);
-   ctx.fillStyle="#000";
-   ctx.font="10px monospace";
-   ctx.fillText("maleza "+(85+Math.floor(Math.random()*10))+"%", x+4, y-4);
- }
- raf=requestAnimationFrame(()=> setTimeout(loop, 300));
-}
-init();
-// PWA installable
-if('serviceWorker' in navigator){ navigator.serviceWorker.register('data:text/javascript, self.addEventListener(\"fetch\", e=> e.respondWith(fetch(e.request)))'); }
 </script>
 </body>
 </html>

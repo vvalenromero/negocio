@@ -1,441 +1,465 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-AR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Valentín Romero · Servicios digitales para comercios — Concepción del Uruguay</title>
-<meta name="description" content="Estudiante de Sistemas de CdU. Google Maps, páginas web, WhatsApp Business y sistemas de turnos para comercios locales.">
+<title>Valentín Romero · Webs, turnos y WhatsApp para comercios — Concepción del Uruguay</title>
+<meta name="description" content="Webs, sistemas de turnos, Google y WhatsApp Business para comercios de Concepción del Uruguay y la zona. Cliente real en producción. Primer mes gratis.">
+<link rel="canonical" href="https://vvalenromero.github.io/negocio/">
+<meta name="theme-color" content="#14452f">
+
+<!-- Compartir: WhatsApp, Instagram, LinkedIn -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_AR">
+<meta property="og:site_name" content="Valentín Romero">
+<meta property="og:title" content="Webs, turnos y WhatsApp para comercios — Concepción del Uruguay">
+<meta property="og:description" content="Tu negocio atendido: web, sistema de turnos, Google y WhatsApp Business. Un cliente real ya usa mis reservas todos los días.">
+<meta property="og:url" content="https://vvalenromero.github.io/negocio/">
+<meta property="og:image" content="https://vvalenromero.github.io/negocio/img/og-portfolio.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Valentín Romero — webs, turnos y WhatsApp para comercios locales">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Webs, turnos y WhatsApp para comercios — Concepción del Uruguay">
+<meta name="twitter:description" content="Web, turnos online, Google y WhatsApp Business para comercios de la zona. Primer mes gratis.">
+<meta name="twitter:image" content="https://vvalenromero.github.io/negocio/img/og-portfolio.jpg">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Valentín Romero — Servicios digitales para comercios",
+  "description": "Webs, sistemas de turnos, Google Business Profile y WhatsApp Business para comercios de Concepción del Uruguay y la zona.",
+  "url": "https://vvalenromero.github.io/negocio/",
+  "image": "https://vvalenromero.github.io/negocio/img/og-portfolio.jpg",
+  "telephone": "+5493447436412",
+  "email": "valengoromero8@gmail.com",
+  "priceRange": "$$",
+  "address": { "@type": "PostalAddress", "addressLocality": "Concepción del Uruguay", "addressRegion": "Entre Ríos", "addressCountry": "AR" },
+  "areaServed": ["Concepción del Uruguay", "San José", "Colón", "Entre Ríos"],
+  "founder": { "@type": "Person", "name": "Valentín Romero", "jobTitle": "Desarrollo web y sistemas para comercios", "sameAs": "https://github.com/vvalenromero" },
+  "openingHours": "Mo-Fr 09:00-19:00"
+}
+</script>
+
 <style>
   :root {
-    --verde: oklch(0.4 0.1 160);
-    --verde-oscuro: oklch(0.3 0.08 160);
-    --ambar: oklch(0.6 0.15 50);
-    --ambar-claro: oklch(0.75 0.12 50);
-    --fondo: oklch(0.96 0.01 80);
-    --tarjeta: white;
-    --texto: oklch(0.25 0.02 50);
-    --texto-claro: oklch(0.45 0.02 50);
-    --borde: oklch(0.9 0.01 80);
-    --radius: 10px;
+    --verde: #17573c;
+    --verde-oscuro: #0e3826;
+    --verde-tinte: #f3f6f4;
+    --ambar: #d98a2b;
+    --ambar-claro: #f0b45f;
+    --fondo: #f7f5f1;
+    --tarjeta: #ffffff;
+    --texto: #24292b;
+    --texto-claro: #5c6469;
+    --borde: #e4e1da;
+    --radius: 12px;
+    --sombra: 0 1px 2px rgba(20,40,30,.06), 0 8px 24px rgba(20,40,30,.06);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
-    font-family: 'Manrope', system-ui, sans-serif;
-    font-size: 16px;
-    line-height: 1.65;
-    background: var(--fondo);
-    color: var(--texto);
+    font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+    font-size: 16px; line-height: 1.65;
+    background: var(--fondo); color: var(--texto);
+    -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, .display {
-    font-family: 'Schibsted Grotesk', system-ui, sans-serif;
-    font-weight: 700;
-    letter-spacing: -.02em;
-    color: var(--verde-oscuro);
-  }
+  h1, h2, h3, .display { font-family: 'Schibsted Grotesk', system-ui, sans-serif; font-weight: 700; letter-spacing: -.02em; color: var(--verde-oscuro); }
+  img { max-width: 100%; height: auto; display: block; }
+  a { color: var(--verde); }
+  :focus-visible { outline: 3px solid var(--ambar); outline-offset: 2px; border-radius: 4px; }
+  .contenedor { max-width: 1000px; margin: 0 auto; padding: 0 1.5rem; }
+  .salto { position: absolute; left: -9999px; }
+  .salto:focus { left: 1rem; top: 1rem; background: var(--tarjeta); padding: .75rem 1rem; border-radius: 8px; z-index: 200; }
 
   /* NAV */
   nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: oklch(0.96 0.01 80 / 0.95);
-    backdrop-filter: blur(8px);
-    padding: 1rem 1.5rem;
-    display: flex; justify-content: space-between; align-items: center;
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(247,245,241,.92);
+    backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--borde);
   }
-  .logo {
-    font-family: 'Schibsted Grotesk', sans-serif;
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--verde-oscuro);
-  }
+  .nav-inner { max-width: 1000px; margin: 0 auto; padding: .85rem 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .logo { font-family: 'Schibsted Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--verde-oscuro); text-decoration: none; }
   .logo span { color: var(--ambar); }
-  nav .cta-nav {
-    background: var(--ambar);
-    color: var(--texto);
-    padding: 0.6rem 1.1rem;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9rem;
-  }
+  .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+  .nav-links a { color: var(--texto-claro); text-decoration: none; font-size: .92rem; font-weight: 600; }
+  .nav-links a:hover { color: var(--verde); }
+  .nav-cta { background: var(--verde); color: #fff; padding: .6rem 1.1rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: .9rem; white-space: nowrap; }
+  .nav-cta:hover { background: var(--verde-oscuro); }
+  @media (max-width: 760px) { .nav-links { display: none; } }
 
   /* HERO */
-  .hero {
-    min-height: 85vh;
-    display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
-    padding: 7rem 1.5rem 4rem;
-    background: linear-gradient(180deg, var(--verde) 0%, var(--verde-oscuro) 100%);
-    color: white;
-  }
-  .hero-content { max-width: 560px; }
-  .hero .etiqueta {
-    display: inline-block;
-    background: rgba(255,255,255,0.15);
-    padding: 0.3rem 0.8rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-  .hero h1 {
-    font-size: clamp(2.4rem, 7vw, 4rem);
-    line-height: 1;
-    margin-bottom: 1rem;
-    color: white;
-  }
+  .hero { background: linear-gradient(170deg, var(--verde) 0%, var(--verde-oscuro) 100%); color: #fff; padding: 4.5rem 1.5rem 4rem; }
+  .hero-inner { max-width: 1000px; margin: 0 auto; }
+  .hero .etiqueta { display: inline-block; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.18); padding: .35rem .85rem; border-radius: 999px; font-size: .78rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; margin-bottom: 1.25rem; }
+  .hero h1 { font-size: clamp(2rem, 6vw, 3.4rem); line-height: 1.05; color: #fff; max-width: 16ch; }
   .hero h1 em { font-style: normal; color: var(--ambar-claro); }
-  .hero p {
-    font-size: 1.1rem;
-    opacity: 0.95;
-    margin-bottom: 1.5rem;
-    max-width: 480px;
-  }
-  .btn {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    padding: 0.9rem 1.3rem;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: all 0.2s;
-  }
-  .btn-primary {
-    background: var(--ambar);
-    color: var(--texto);
-  }
-  .btn-primary:hover {
-    background: var(--ambar-claro);
-    transform: translateY(-2px);
-  }
-  .btn-ghost {
-    background: transparent;
-    color: white;
-    border: 1.5px solid rgba(255,255,255,0.4);
-  }
-  .btn-ghost:hover { background: rgba(255,255,255,0.1); }
+  .hero p { font-size: 1.08rem; color: rgba(255,255,255,.92); max-width: 52ch; margin-top: 1.25rem; }
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.75rem; }
+  .btn { display: inline-flex; align-items: center; gap: .5rem; padding: .85rem 1.3rem; border-radius: 9px; text-decoration: none; font-weight: 700; font-size: .95rem; transition: transform .15s ease, background .15s ease; }
+  .btn-primary { background: var(--ambar); color: #2a1a05; }
+  .btn-primary:hover { background: var(--ambar-claro); transform: translateY(-2px); }
+  .btn-ghost { color: #fff; border: 1.5px solid rgba(255,255,255,.35); }
+  .btn-ghost:hover { background: rgba(255,255,255,.1); }
+  .hero-datos { display: flex; flex-wrap: wrap; gap: 1.5rem 2rem; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,.16); font-size: .9rem; color: rgba(255,255,255,.85); }
+  .hero-datos strong { color: #fff; display: block; font-family: 'Schibsted Grotesk', sans-serif; font-size: 1.35rem; }
 
   /* SECCIONES */
-  section {
-    padding: 4rem 1.5rem;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  .seccion-titulo {
-    margin-bottom: 2rem;
-  }
-  .seccion-titulo .etiqueta {
-    color: var(--ambar);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    font-size: 0.78rem;
-    font-weight: 600;
-  }
-  .seccion-titulo h2 {
-    font-size: 1.8rem;
-    margin-top: 0.5rem;
-  }
+  section { padding: 4rem 0; }
+  .titulo { margin-bottom: 2rem; max-width: 60ch; }
+  .titulo .etiqueta { color: var(--ambar); letter-spacing: .14em; text-transform: uppercase; font-size: .78rem; font-weight: 700; }
+  .titulo h2 { font-size: clamp(1.5rem, 4vw, 2.1rem); margin-top: .4rem; }
+  .titulo p { color: var(--texto-claro); margin-top: .6rem; }
+  .tinte { background: var(--verde-tinte); border-top: 1px solid var(--borde); border-bottom: 1px solid var(--borde); }
 
   /* SERVICIOS */
-  .servicios {
-    display: grid;
-    gap: 1rem;
-  }
-  .servicio {
-    background: var(--tarjeta);
-    border: 1px solid var(--borde);
-    border-radius: var(--radius);
-    padding: 1.5rem;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 1rem;
-    align-items: center;
-  }
-  .servicio h3 {
-    font-size: 1.1rem;
-    color: var(--verde-oscuro);
-    margin-bottom: 0.3rem;
-  }
-  .servicio p {
-    color: var(--texto-claro);
-    font-size: 0.92rem;
-  }
-  .servicio .precio {
-    font-family: 'Schibsted Grotesk', sans-serif;
-    font-weight: 700;
-    font-size: 1.3rem;
-    color: var(--verde);
-    text-align: right;
-  }
-  .servicio .precio small {
-    display: block;
-    font-size: 0.75rem;
-    color: var(--texto-claro);
-    font-weight: 500;
-  }
+  .servicios { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); }
+  .servicio { background: var(--tarjeta); border: 1px solid var(--borde); border-radius: var(--radius); padding: 1.5rem; box-shadow: var(--sombra); display: flex; flex-direction: column; gap: .6rem; position: relative; }
+  .servicio.destacado { border: 2px solid var(--ambar); }
+  .servicio .marca { position: absolute; top: -.75rem; left: 1.25rem; background: var(--ambar); color: #2a1a05; font-size: .68rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; padding: .2rem .6rem; border-radius: 999px; }
+  .servicio h3 { font-size: 1.08rem; }
+  .servicio p { color: var(--texto-claro); font-size: .93rem; flex: 1; }
+  .servicio .precio { font-family: 'Schibsted Grotesk', sans-serif; font-weight: 700; font-size: 1.3rem; color: var(--verde); }
+  .servicio .precio small { display: block; font-family: 'Manrope', sans-serif; font-size: .78rem; color: var(--texto-claro); font-weight: 600; }
 
-  /* PORTFOLIO */
-  .portfolio {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-  }
-  .trabajo {
-    background: var(--tarjeta);
-    border: 1px solid var(--borde);
-    border-radius: var(--radius);
-    overflow: hidden;
-  }
-  .trabajo .foto {
-    position: relative;
-    aspect-ratio: 16/10;
-    overflow: hidden;
-    background: var(--verde-oscuro);
-  }
-  .trabajo .foto img {
-    width: 100%; height: 100%;
-    object-fit: cover; object-position: top;
-    display: block;
-  }
-  .trabajo .badge {
-    position: absolute; top: 0.75rem; right: 0.75rem;
-    background: var(--ambar);
-    color: var(--texto);
-    font-size: 0.7rem; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.08em;
-    padding: 0.25rem 0.6rem; border-radius: 20px;
-  }
-  .trabajo .info {
-    padding: 1.25rem;
-  }
-  .trabajo h3 {
-    font-size: 1rem;
-    color: var(--verde-oscuro);
-    margin-bottom: 0.3rem;
-  }
-  .trabajo p {
-    color: var(--texto-claro);
-    font-size: 0.88rem;
-  }
-  .trabajo .link {
-    display: inline-block;
-    margin-top: 0.8rem;
-    color: var(--verde);
-    font-weight: 600;
-    font-size: 0.9rem;
-    text-decoration: none;
-  }
+  /* TRABAJOS */
+  .trabajos { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .trabajo { background: var(--tarjeta); border: 1px solid var(--borde); border-radius: var(--radius); overflow: hidden; box-shadow: var(--sombra); display: flex; flex-direction: column; }
+  .trabajo figure { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--verde-oscuro); }
+  .trabajo figure img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+  .badge { position: absolute; top: .75rem; right: .75rem; background: var(--ambar); color: #2a1a05; font-size: .68rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; padding: .25rem .6rem; border-radius: 999px; }
+  .badge.produccion { background: #1f7a4d; color: #fff; }
+  .trabajo .info { padding: 1.15rem; display: flex; flex-direction: column; gap: .35rem; flex: 1; }
+  .trabajo h3 { font-size: 1rem; }
+  .trabajo p { color: var(--texto-claro); font-size: .9rem; flex: 1; }
+  .trabajo .link { font-weight: 700; font-size: .9rem; text-decoration: none; }
   .trabajo .link:hover { text-decoration: underline; }
 
+  /* PROCESO */
+  .pasos { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); counter-reset: paso; }
+  .paso { background: var(--tarjeta); border: 1px solid var(--borde); border-radius: var(--radius); padding: 1.4rem; }
+  .paso::before { counter-increment: paso; content: counter(paso, decimal-leading-zero); font-family: 'Schibsted Grotesk', sans-serif; font-size: .95rem; font-weight: 700; color: var(--ambar); letter-spacing: .1em; }
+  .paso h3 { font-size: 1rem; margin: .5rem 0 .35rem; }
+  .paso p { color: var(--texto-claro); font-size: .9rem; }
+
+  /* QUIÉN SOY */
+  .quien { display: grid; gap: 2rem; grid-template-columns: 1.4fr 1fr; align-items: start; }
+  .quien p { color: var(--texto-claro); margin-bottom: .9rem; }
+  .quien strong { color: var(--texto); }
+  .ficha { background: var(--tarjeta); border: 1px solid var(--borde); border-radius: var(--radius); padding: 1.4rem; box-shadow: var(--sombra); }
+  .ficha h3 { font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: var(--texto-claro); margin-bottom: .9rem; font-family: 'Manrope', sans-serif; font-weight: 700; }
+  .ficha ul { list-style: none; display: grid; gap: .6rem; font-size: .92rem; }
+  .ficha li { display: flex; gap: .5rem; align-items: baseline; }
+  .ficha li::before { content: "—"; color: var(--ambar); font-weight: 700; }
+  @media (max-width: 820px) { .quien { grid-template-columns: 1fr; } }
+
   /* GARANTÍA */
-  .garantia {
-    background: var(--verde-oscuro);
-    color: white;
-    border-radius: var(--radius);
-    padding: 2.5rem 2rem;
-    text-align: center;
-    margin-top: 2rem;
-  }
-  .garantia h3 {
-    font-size: 1.4rem;
-    color: white;
-    margin-bottom: 0.5rem;
-  }
-  .garantia p {
-    opacity: 0.9;
-    max-width: 500px;
-    margin: 0 auto;
-  }
+  .garantia { background: var(--verde-oscuro); color: #fff; border-radius: var(--radius); padding: 2.25rem 2rem; text-align: center; }
+  .garantia h2 { color: #fff; font-size: 1.5rem; }
+  .garantia p { color: rgba(255,255,255,.9); max-width: 55ch; margin: .6rem auto 0; }
+
+  /* PREGUNTAS */
+  .faq { display: grid; gap: .75rem; max-width: 760px; }
+  details { background: var(--tarjeta); border: 1px solid var(--borde); border-radius: var(--radius); padding: 1rem 1.25rem; }
+  details[open] { border-color: var(--ambar); }
+  summary { cursor: pointer; font-weight: 700; font-family: 'Schibsted Grotesk', sans-serif; color: var(--verde-oscuro); list-style: none; display: flex; justify-content: space-between; gap: 1rem; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; color: var(--ambar); font-weight: 700; }
+  details[open] summary::after { content: "–"; }
+  details p { color: var(--texto-claro); margin-top: .7rem; font-size: .94rem; }
 
   /* CONTACTO */
-  .contacto {
-    background: var(--tarjeta);
-    border: 1px solid var(--borde);
-    border-radius: var(--radius);
-    padding: 2.5rem 2rem;
-    text-align: center;
-  }
-  .contacto h2 { margin-bottom: 0.5rem; }
-  .contacto p {
-    color: var(--texto-claro);
-    margin-bottom: 1.5rem;
-  }
-  .contacto .btn-primary { margin-top: 0.5rem; }
+  .contacto { background: var(--tarjeta); border: 1px solid var(--borde); border-radius: var(--radius); padding: 2.5rem 2rem; text-align: center; box-shadow: var(--sombra); }
+  .contacto h2 { font-size: clamp(1.5rem, 4vw, 2rem); }
+  .contacto p { color: var(--texto-claro); max-width: 50ch; margin: .6rem auto 1.5rem; }
+  .contacto-datos { display: flex; flex-wrap: wrap; gap: 1rem 1.75rem; justify-content: center; margin-top: 1.5rem; font-size: .92rem; color: var(--texto-claro); }
+  .contacto-datos a { font-weight: 600; }
 
-  /* FOOTER */
-  footer {
-    text-align: center;
-    padding: 2rem 1.5rem;
-    color: var(--texto-claro);
-    font-size: 0.85rem;
-    border-top: 1px solid var(--borde);
-  }
+  footer { border-top: 1px solid var(--borde); padding: 2rem 1.5rem; text-align: center; color: var(--texto-claro); font-size: .87rem; }
+  footer a { font-weight: 600; }
 
-  @media (max-width: 640px) {
-    .hero { min-height: 75vh; padding: 6rem 1.25rem 3rem; }
-    section { padding: 3rem 1.25rem; }
-    .servicio { grid-template-columns: 1fr; text-align: center; }
-    .servicio .precio { text-align: center; }
-  }
+  /* WHATSAPP FLOTANTE */
+  .wa-flotante { position: fixed; right: 1.1rem; bottom: 1.1rem; z-index: 150; background: #1f7a4d; color: #fff; text-decoration: none; font-weight: 700; font-size: .92rem; padding: .8rem 1.1rem; border-radius: 999px; box-shadow: 0 6px 20px rgba(0,0,0,.22); display: inline-flex; align-items: center; gap: .5rem; }
+  .wa-flotante:hover { background: #17603c; }
+  @media (max-width: 520px) { .wa-flotante { right: .75rem; bottom: .75rem; font-size: .85rem; padding: .7rem .95rem; } }
+
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn { transition: none; } }
 </style>
 </head>
 <body>
+<a class="salto" href="#servicios">Saltar al contenido</a>
 
-<nav>
-  <div class="logo">Valentín<span>.</span></div>
-  <a href="#contacto" class="cta-nav">Contactar</a>
+<nav aria-label="Principal">
+  <div class="nav-inner">
+    <a href="#" class="logo">Valentín<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#trabajos">Trabajos</a></li>
+      <li><a href="#proceso">Cómo trabajo</a></li>
+      <li><a href="#preguntas">Preguntas</a></li>
+    </ul>
+    <a class="nav-cta" href="https://wa.me/5493447436412">Escribime</a>
+  </div>
 </nav>
 
 <header class="hero">
-  <div class="hero-content">
-    <span class="etiqueta">Concepción del Uruguay</span>
+  <div class="hero-inner">
+    <span class="etiqueta">Concepción del Uruguay · Entre Ríos</span>
     <h1>Tus clientes reservan, piden y te encuentran — <em>sin que atiendas cada mensaje</em></h1>
-    <p>Web, turnos online, Google y WhatsApp para comercios de CdU. Vos atendés tu negocio; la tecnología atiende el resto.</p>
-    <a href="#servicios" class="btn btn-primary">Ver servicios</a>
-    <a href="#portfolio" class="btn btn-ghost">Ver trabajos</a>
+    <p>Web, sistema de turnos, Google y WhatsApp Business para comercios de la zona. Vos atendés tu negocio; la parte digital la dejo andando y la sostengo yo.</p>
+    <div class="hero-ctas">
+      <a href="#servicios" class="btn btn-primary">Ver servicios</a>
+      <a href="#trabajos" class="btn btn-ghost">Ver trabajos</a>
+    </div>
+    <div class="hero-datos">
+      <div><strong>1</strong> cliente real en producción</div>
+      <div><strong>6</strong> sistemas y sitios construidos</div>
+      <div><strong>Mismo día</strong> respuesta por WhatsApp</div>
+    </div>
   </div>
 </header>
 
 <section id="servicios">
-  <div class="seccion-titulo">
-    <p class="etiqueta">Servicios</p>
-    <h2>Qué puedo hacer por tu negocio</h2>
-  </div>
-  <div class="servicios">
-    <div class="servicio" style="border:2px solid var(--ambar)">
-      <div>
-        <h3>Agente IA de WhatsApp 🤖</h3>
-        <p>Un bot que atiende el WhatsApp 24/7: reserva turnos solo, contesta precios y horarios, y te avisa cuando hay algo que necesita una persona. Vos solo mirás la agenda.</p>
-      </div>
-      <div class="precio">$35.000<small>+ $15.000/mes</small></div>
+  <div class="contenedor">
+    <div class="titulo">
+      <p class="etiqueta">Servicios</p>
+      <h2>Qué puedo hacer por tu negocio</h2>
+      <p>Precios publicados, sin presupuestos sorpresa. Y el primer mes es gratis: lo probás con tus clientes reales antes de decidir.</p>
     </div>
-    <div class="servicio" style="border:2px solid var(--ambar)">
-      <div>
-        <h3>Google Business Profile</h3>
-        <p>Tu negocio aparece en Google Maps con fotos, horarios, teléfono y reseñas. Cuando alguien busca tu rubro en CdU, te encuentra a vos.</p>
-      </div>
-      <div class="precio">$15.000<small>único</small></div>
-    </div>
-    <div class="servicio">
-      <div>
-        <h3>Página web simple</h3>
-        <p>Una página con tus productos, precios, dirección y botón de WhatsApp. Lista en 1-2 días, sin mantenimiento complicado.</p>
-      </div>
-      <div class="precio">$25.000<small>único</small></div>
-    </div>
-    <div class="servicio">
-      <div>
-        <h3>WhatsApp Business</h3>
-        <p>Configuro tu WhatsApp con respuestas automáticas, catálogo de productos y mensaje de ausencia. Ahorrás tiempo respondiendo.</p>
-      </div>
-      <div class="precio">$10.000<small>único</small></div>
-    </div>
-    <div class="servicio">
-      <div>
+    <div class="servicios">
+      <article class="servicio destacado">
+        <span class="marca">Más pedido</span>
+        <h3>Agente IA de WhatsApp</h3>
+        <p>Un asistente que atiende tu WhatsApp 24/7: reserva turnos solo, contesta precios y horarios, y te avisa cuando hay algo que necesita una persona. Vos mirás la agenda.</p>
+        <div class="precio">$35.000 <small>+ $15.000 por mes</small></div>
+      </article>
+      <article class="servicio">
         <h3>Sistema de turnos online</h3>
-        <p>Para barberías, estéticas, veterinarias y profesionales. Los clientes reservan turno solos desde el celu, vos ves la agenda del día.</p>
-      </div>
-      <div class="precio">$20.000<small>+ $10.000/mes</small></div>
+        <p>Para barberías, estéticas, veterinarias y profesionales. Tus clientes reservan solos desde el celular y vos ves la agenda del día ordenada.</p>
+        <div class="precio">$20.000 <small>+ $10.000 por mes</small></div>
+      </article>
+      <article class="servicio">
+        <h3>Página web para tu comercio</h3>
+        <p>Una página con tus productos, precios, dirección y botón de WhatsApp. Lista en 1 o 2 días, sin mantenimiento complicado.</p>
+        <div class="precio">$25.000 <small>pago único</small></div>
+      </article>
+      <article class="servicio destacado">
+        <span class="marca">Aparecer en Google</span>
+        <h3>Google Business Profile</h3>
+        <p>Tu negocio en Google Maps con fotos, horarios, teléfono y reseñas. Cuando alguien busca tu rubro en la ciudad, te encuentra a vos y no al de la vuelta.</p>
+        <div class="precio">$15.000 <small>pago único</small></div>
+      </article>
+      <article class="servicio">
+        <h3>WhatsApp Business configurado</h3>
+        <p>Respuestas automáticas, catálogo de productos y mensaje de ausencia. Dejás de contestar lo mismo quince veces por día.</p>
+        <div class="precio">$10.000 <small>pago único</small></div>
+      </article>
+      <article class="servicio">
+        <h3>Redes y contenido</h3>
+        <p>Placas, historias y publicaciones para tus redes, con una grilla del mes y respuesta de los mensajes que llegan por ahí.</p>
+        <div class="precio">A medida <small>según el local y la frecuencia</small></div>
+      </article>
     </div>
   </div>
 </section>
 
-<section id="portfolio">
-  <div class="seccion-titulo">
-    <p class="etiqueta">Portfolio</p>
-    <h2>Cosas que construí</h2>
+<section id="trabajos" class="tinte">
+  <div class="contenedor">
+    <div class="titulo">
+      <p class="etiqueta">Trabajos</p>
+      <h2>Cosas que construí y podés abrir ahora</h2>
+      <p>Todo lo que ves acá funciona de verdad: son sitios y sistemas reales, no maquetas de una imagen.</p>
+    </div>
+    <div class="trabajos">
+      <article class="trabajo">
+        <figure>
+          <img src="img/munayki.webp" alt="Sitio web y sistema de reservas de las Cabañas Munay Ki" width="1200" height="800" loading="lazy" decoding="async">
+          <span class="badge produccion">En producción</span>
+        </figure>
+        <div class="info">
+          <h3>Cabañas Munay Ki · sitio + reservas</h3>
+          <p>En uso por las cabañas de San José: el huésped elige fechas y reserva solo desde el sitio. El dueño abre el panel y ve la agenda del mes.</p>
+          <a class="link" href="https://vvalenromero.github.io/munay-ki/" target="_blank" rel="noopener">Ver el sitio →</a>
+        </div>
+      </article>
+      <article class="trabajo">
+        <figure>
+          <img src="img/agente.webp" alt="Agente de IA que atiende WhatsApp y reserva turnos" width="1200" height="750" loading="lazy" decoding="async">
+          <span class="badge">Con IA</span>
+        </figure>
+        <div class="info">
+          <h3>Agente IA de WhatsApp</h3>
+          <p>Atiende solo, entiende el pedido, ofrece horarios libres y cierra el turno. Probá la demo y escribile como si fueras un cliente.</p>
+          <a class="link" href="https://vvalenromero.github.io/negocio/demo-agente/" target="_blank" rel="noopener">Ver demo interactiva →</a>
+        </div>
+      </article>
+      <article class="trabajo">
+        <figure>
+          <img src="img/barberia.webp" alt="Sistema de turnos para barbería con agenda y caja" width="1280" height="800" loading="lazy" decoding="async">
+        </figure>
+        <div class="info">
+          <h3>Sistema de turnos para barbería</h3>
+          <p>Reserva de turnos, agenda del dueño y caja registradora en el mismo lugar. Es la base del sistema que hoy usan los comercios.</p>
+          <a class="link" href="https://vvalenromero.github.io/peluqeria/demo/" target="_blank" rel="noopener">Ver demo →</a>
+        </div>
+      </article>
+      <article class="trabajo">
+        <figure>
+          <img src="img/kiosco.webp" alt="Catálogo digital con carrito y pedido por WhatsApp" width="1280" height="800" loading="lazy" decoding="async">
+        </figure>
+        <div class="info">
+          <h3>Catálogo digital para kioscos</h3>
+          <p>El cliente ve los productos, arma el pedido en el carrito y te llega por WhatsApp. Para kioscos, dietéticas y almacenes.</p>
+          <a class="link" href="https://vvalenromero.github.io/negocio/demo-kiosco/" target="_blank" rel="noopener">Ver demo →</a>
+        </div>
+      </article>
+      <article class="trabajo">
+        <figure>
+          <img src="img/fuego.webp" alt="Menú digital con pedido por WhatsApp" width="1200" height="800" loading="lazy" decoding="async">
+        </figure>
+        <div class="info">
+          <h3>Menú digital con pedido por WhatsApp</h3>
+          <p>La carta del local en el celular del cliente, con el pedido armado y enviado por WhatsApp. Para comidas y rotiserías.</p>
+          <a class="link" href="https://vvalenromero.github.io/negocio/demo-comida/" target="_blank" rel="noopener">Ver demo →</a>
+        </div>
+      </article>
+      <article class="trabajo">
+        <figure>
+          <img src="img/consultorio.webp" alt="Agenda online de turnos para consultorios" width="1280" height="800" loading="lazy" decoding="async">
+        </figure>
+        <div class="info">
+          <h3>Agenda online para consultorios</h3>
+          <p>El paciente elige especialista, día y hora, y recibe la confirmación por WhatsApp. Menos llamados en el medio del trabajo.</p>
+          <a class="link" href="https://vvalenromero.github.io/negocio/demo-consultorio/" target="_blank" rel="noopener">Ver demo →</a>
+        </div>
+      </article>
+    </div>
   </div>
-  <div class="portfolio">
-    <div class="trabajo">
-      <div class="foto">
-        <img src="img/barberia.png" alt="Sistema de turnos online para barbería" loading="lazy">
-      </div>
-      <div class="info">
-        <h3>Sistema de turnos para barbería</h3>
-        <p>Demo completa con reserva de turnos, agenda del dueño y caja registradora.</p>
-        <a href="https://vvalenromero.github.io/peluqeria/demo/" class="link" target="_blank">Ver demo →</a>
-      </div>
+</section>
+
+<section id="proceso">
+  <div class="contenedor">
+    <div class="titulo">
+      <p class="etiqueta">Cómo trabajo</p>
+      <h2>Cuatro pasos, sin reuniones eternas</h2>
     </div>
-    <div class="trabajo">
-      <div class="foto">
-        <img src="img/munayki.png" alt="Sitio web y reservas online de cabañas Munay Ki" loading="lazy">
-        <span class="badge">En producción</span>
-      </div>
-      <div class="info">
-        <h3>Cabañas Munay Ki · sitio + reservas</h3>
-        <p>En uso por cabañas en San José: los huéspedes reservan solos desde el sitio y la agenda se actualiza en tiempo real.</p>
-        <a href="https://vvalenromero.github.io/munay-ki/" class="link" target="_blank">Ver sitio →</a>
-      </div>
+    <div class="pasos">
+      <article class="paso">
+        <h3>Vemos qué necesitás</h3>
+        <p>Nos sentamos veinte minutos, en tu local o por WhatsApp. Me contás cómo trabajás hoy y qué te gustaría sacarte de encima.</p>
+      </article>
+      <article class="paso">
+        <h3>Te paso qué incluye y cuánto sale</h3>
+        <p>Sin letra chica: qué queda hecho, en cuánto tiempo y el precio. Si arrancamos, la seña es del 50% y el resto lo pagás con todo funcionando.</p>
+      </article>
+      <article class="paso">
+        <h3>Lo armo y te lo muestro andando</h3>
+        <p>Mientras trabajo no necesito nada de vos. Cuando está, te muestro el sistema funcionando de verdad, no una foto.</p>
+      </article>
+      <article class="paso">
+        <h3>Te lo explico y queda andando</h3>
+        <p>Te enseño a usarlo en el celular, te dejo por escrito lo que hace cada cosa y quedás con mi WhatsApp para lo que aparezca.</p>
+      </article>
     </div>
-    <div class="trabajo">
-      <div class="foto">
-        <img src="img/kiosco.png" alt="Catálogo digital con carrito y pedido por WhatsApp" loading="lazy">
+  </div>
+</section>
+
+<section class="tinte">
+  <div class="contenedor">
+    <div class="quien">
+      <div>
+        <div class="titulo" style="margin-bottom:1rem">
+          <p class="etiqueta">Quién soy</p>
+          <h2>Valentín Romero</h2>
+        </div>
+        <p>Soy de <strong>Concepción del Uruguay</strong> y estudio el tercer año de Licenciatura en Sistemas en la <strong>UADER (FCyT)</strong>. Trabajo con comercios de la zona armando la parte digital que nadie tiene tiempo de armar: la web, los turnos, la ficha de Google, el WhatsApp y el contenido de las redes.</p>
+        <p>Un cliente real usa todos los días el sistema de reservas que hice para sus cabañas. Los demás trabajos los podés abrir desde acá arriba: si algo no funciona, no lo muestro.</p>
+        <p>Trabajo directo, sin agencias ni intermediarios: hablás siempre conmigo, y lo que te prometo es lo que te entrego.</p>
       </div>
-      <div class="info">
-        <h3>Catálogo digital para comercios</h3>
-        <p>El cliente ve los productos, arma el pedido en el carrito y te llega por WhatsApp. Para kioscos, dietéticas y locales.</p>
-        <a href="https://vvalenromero.github.io/negocio/demo-kiosco/" class="link" target="_blank">Ver demo →</a>
-      </div>
-    </div>
-    <div class="trabajo">
-      <div class="foto">
-        <img src="img/fuego.png" alt="Menú digital con pedido por WhatsApp" loading="lazy">
-      </div>
-      <div class="info">
-        <h3>Menú digital con pedido por WhatsApp</h3>
-        <p>El cliente arma su pedido en la carta y te llega por WhatsApp. Ideal para comida, pedidos y catálogos.</p>
-        <a href="https://vvalenromero.github.io/negocio/demo-comida/" class="link" target="_blank">Ver demo →</a>
-      </div>
-    </div>
-    <div class="trabajo" style="border:2px solid var(--ambar)">
-      <div class="foto">
-        <img src="img/barberia.png" alt="Agente IA WhatsApp turnos automaticos" loading="lazy">
-        <span class="badge">NUEVO · CON IA</span>
-      </div>
-      <div class="info">
-        <h3>Agente IA de WhatsApp · Turnos automáticos</h3>
-        <p>Atiende el WhatsApp, reserva turnos solo y te llena la agenda. 24/7, sin que atiendas un mensaje. Para barberías, peluquerías y estética.</p>
-        <a href="https://vvalenromero.github.io/negocio/demo-agente/" class="link" target="_blank">Ver demo interactiva →</a>
-      </div>
-    </div>
-    <div class="trabajo">
-      <div class="foto">
-        <img src="img/consultorio.png" alt="Agenda online de turnos para consultorios" loading="lazy">
-      </div>
-      <div class="info">
-        <h3>Agenda online para consultorios</h3>
-        <p>Los pacientes reservan turno solos desde el celular, eligen especialista, día y hora, y la confirmación llega por WhatsApp.</p>
-        <a href="https://vvalenromero.github.io/negocio/demo-consultorio/" class="link" target="_blank">Ver demo →</a>
-      </div>
+      <aside class="ficha">
+        <h3>En dos líneas</h3>
+        <ul>
+          <li>3er año de Licenciatura en Sistemas (UADER FCyT)</li>
+          <li>Cliente real en producción: Cabañas Munay Ki</li>
+          <li>Trabajos para comercios: kioscos, barberías, comida, consultorios</li>
+          <li>Zona: Concepción del Uruguay, San José, Colón y alrededores</li>
+          <li>Atiendo por WhatsApp: <a href="https://wa.me/5493447436412">+54 9 3447 436412</a></li>
+          <li>GitHub: <a href="https://github.com/vvalenromero" target="_blank" rel="noopener">github.com/vvalenromero</a></li>
+        </ul>
+      </aside>
     </div>
   </div>
 </section>
 
 <section>
-  <div class="garantia">
-    <h3>Primer mes gratis</h3>
-    <p>Probá cualquier servicio sin compromiso. Si no te sirve, no pagás nada. Así de simple.</p>
+  <div class="contenedor">
+    <div class="garantia">
+      <h2>El primer mes es gratis</h2>
+      <p>Probá cualquiera de los servicios sin compromiso. Si no te sirve, no pagás nada: te lo digo por escrito antes de arrancar.</p>
+    </div>
+  </div>
+</section>
+
+<section id="preguntas" class="tinte">
+  <div class="contenedor">
+    <div class="titulo">
+      <p class="etiqueta">Preguntas</p>
+      <h2>Lo que casi todos me preguntan</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>¿Cómo se paga?</summary>
+        <p>Arranco con el 50% de seña y el resto lo pagás cuando te lo entrego funcionando. Los servicios mensuales (turnos y agente de WhatsApp) se pagan mes a mes e incluyen el mantenimiento.</p>
+      </details>
+      <details>
+        <summary>¿Y si no me sirve?</summary>
+        <p>El primer mes es gratis. Lo probás con tus clientes reales y recién después decidís si seguimos. Antes de empezar te queda claro qué incluye y qué no.</p>
+      </details>
+      <details>
+        <summary>¿Trabajás fuera de Concepción del Uruguay?</summary>
+        <p>Sí. Trabajo en Concepción, San José, Colón y alrededores. Lo que se hace por internet no tiene distancia; si necesitamos ver algo en persona, voy al local.</p>
+      </details>
+      <details>
+        <summary>¿Necesito saber de computación?</summary>
+        <p>No. Vos usás el celular para mirar la agenda y responder mensajes. Yo dejo todo configurado, te lo explico en persona y te queda por escrito qué hace cada cosa.</p>
+      </details>
+      <details>
+        <summary>¿Qué pasa si algo se rompe?</summary>
+        <p>Me escribís y lo arreglo. El mantenimiento está incluido en los servicios mensuales y, en los trabajos de pago único, quedan las correcciones de lo que armé.</p>
+      </details>
+    </div>
   </div>
 </section>
 
 <section id="contacto">
-  <div class="contacto">
-    <h2>¿Hablamos?</h2>
-    <p>Escribime por WhatsApp y coordinamos una visita sin cargo.</p>
-    <a href="https://wa.me/5493447436412" class="btn btn-primary">Escribime por WhatsApp</a>
+  <div class="contenedor">
+    <div class="contacto">
+      <h2>¿Hablamos?</h2>
+      <p>Escribime por WhatsApp y coordinamos una visita sin cargo al local. Veinte minutos alcanzan para saber si te sirve y cuánto sale.</p>
+      <a class="btn btn-primary" href="https://wa.me/5493447436412">Escribime por WhatsApp</a>
+      <div class="contacto-datos">
+        <span>WhatsApp: <strong>+54 9 3447 436412</strong></span>
+        <span>Mail: <a href="mailto:valengoromero8@gmail.com">valengoromero8@gmail.com</a></span>
+        <span>Concepción del Uruguay, Entre Ríos</span>
+      </div>
+    </div>
   </div>
 </section>
 
 <footer>
-  <p>Valentín Romero · Estudiante de Sistemas UADER · Concepción del Uruguay, Entre Ríos</p>
-  <p style="margin-top: 0.5rem; opacity: 0.7;">Lun a Vie 9:00–19:00 · Sáb 9:00–13:00</p>
-  <p style="margin-top: 0.5rem; opacity: 0.7;">© 2026</p>
+  <p>Valentín Romero · Servicios digitales para comercios · Concepción del Uruguay, Entre Ríos</p>
+  <p style="margin-top:.4rem">Estudiante de Licenciatura en Sistemas (UADER FCyT) · <a href="https://github.com/vvalenromero" target="_blank" rel="noopener">GitHub</a> · <a href="mailto:valengoromero8@gmail.com">valengoromero8@gmail.com</a></p>
+  <p style="margin-top:.4rem; opacity:.75">Lunes a viernes de 9 a 19 · Sábados de 9 a 13 · © 2026</p>
 </footer>
 
+<a class="wa-flotante" href="https://wa.me/5493447436412" aria-label="Escribime por WhatsApp">WhatsApp</a>
 </body>
 </html>
